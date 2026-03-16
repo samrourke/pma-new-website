@@ -1,0 +1,261 @@
+.about {
+  position: relative;
+  background: var(--london);
+  color: #111;
+  padding-top: var(--padding-topbottom);
+  overflow: clip;
+}
+
+.header {
+  position: relative;
+  z-index: 3;
+  padding-left: var(--padding-leftright);
+  padding-right: var(--padding-leftright);
+  margin-bottom: clamp(20px, 3vw, 28px);
+
+}
+
+.kicker {
+  margin: 0 0 10px 0;
+  font-size: var(--fs--p);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color:var(--offWhite);
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(4rem, 9vw, 9rem);
+  line-height: 0.92;
+  color: var(--offWhite);
+  font-family: var(--font-mango);
+  font-weight: 600;
+  max-width: 12ch;
+}
+
+.copy {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  gap: 32px;
+  max-width: 50rem;
+  padding-left: var(--padding-leftright);
+  padding-right: var(--padding-leftright);
+margin-bottom: clamp(8px, 2vw, 18px);
+}
+
+.lead,
+.body {
+  margin: 0;
+  color: var(--offWhite);
+}
+
+.lead {
+  font-size: var(--fs-h4);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-family: var(--font-grotesk);
+  font-weight: 500;
+  
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+}
+
+.body {
+  font-size: var(--fs-h5);
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+  font-family: var(--font-satoshi);
+  font-weight: 500;
+  color:var(--offWhite);
+  max-width: 40rem;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+    
+}
+
+.wordWrap {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.word {
+  display: inline-block;
+  will-change: opacity;
+}
+
+/* Full bleed / breakout image */
+.imageBreakout {
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+ margin-top: clamp(-420px, -22vw, -600px);
+aspect-ratio: 144/90; 
+
+  /* margin-bottom: clamp(18px, 3vw, 30px); */
+}
+
+.teamImage {
+  position: relative;
+  width: 100%;
+  /* height: min(90vh, 1000px); */
+  aspect-ratio: 144/96;
+  min-height: 420px;
+  overflow: hidden;
+  background: #d8d1c7;
+}
+
+.teamImage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.teamImage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.42) 0%,
+      rgba(0, 0, 0, 0.22) 28%,
+      rgba(0, 0, 0, 0.08) 52%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+}
+
+.imageInner {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.image {
+  object-fit: cover;
+  object-position: 50% 20%;
+  transform: scale(1.001);
+}
+
+
+
+
+
+ 
+.caption{
+  position: absolute;
+  bottom:var(--padding-leftright);
+  right:var(--padding-leftright);
+  color:var(--offWhite);
+  font-size: var(--fs-h5);
+  max-width: 30ch;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+/* Larger desktop refinement */
+@media (min-width: 1100px) {
+  
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .copy {
+    margin-bottom: 32px;
+  }
+
+  /* .imageBreakout {
+margin-top: clamp(-70px, -7vw, -120px);
+  } */
+
+  /* .teamImage {
+    height: min(82vh, 980px);
+  } */
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .title {
+    max-width: none;
+       
+  }
+
+
+  .copy {
+    max-width: 70%;
+    font-size: var(--fs--p);
+      
+  }
+
+  
+
+  
+
+  .imageBreakout {
+    margin-top: clamp(-400px, -10vw, -600);
+  }
+
+  /* .teamImage {
+    height: 62vh;
+    min-height: 360px;
+  } */
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .about {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .header {
+    margin-bottom: 16px;
+  }
+
+  .title {
+  
+    line-height: 0.94;
+  }
+
+  .copy {
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+ 
+
+  .body {
+   
+    max-width: none;
+  }
+
+  .imageBreakout {
+     .imageBreakout {
+    margin-top: clamp(-200px, -10vw, -600);
+  }
+  }
+
+  .teamImage {
+    height: 48vh;
+    min-height: 280px;
+  }
+
+  .caption {
+    max-width: 70%;
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imageInner {
+    transform: none !important;
+  }
+}

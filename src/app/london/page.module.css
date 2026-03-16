@@ -1,0 +1,108 @@
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.london {
+  background: var(--london);
+  color: var(--offWhite);
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.heroMediaSlot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--padding-topbottom) var(--padding-leftright);
+}
+
+.heroTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: var(--padding-leftright);
+  gap: 0.75rem;
+}
+
+.logo {
+  width: clamp(200px, 30vw, 450px);
+  height: auto;
+  filter: brightness(0) saturate(100%) invert(93%) sepia(25%) saturate(517%) hue-rotate(312deg) brightness(104%) contrast(98%);
+}
+
+.officeTag {
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+    font-size:var(--fs-h4);
+  
+ 
+}
+/* 
+.heroBottom {
+  max-width: 1100px;
+} */
+
+.heroText {
+  font-size: var(--fs-h1);
+  line-height: 0.92;
+  font-family: var(--font-gravity);
+  
+ 
+  
+}
+
+
+
+
+.hl {
+  color: var(--london);
+  opacity: 0.9;
+}
+
+.heroIntro {
+  margin-top: 1.5rem;
+  max-width: 28ch;
+  font-size:var(--fs-h4);
+  line-height: 1.4;
+}
+
+.who,
+.services,
+.work,
+.partners {
+  padding: 8rem var(--padding-leftright);
+}
+

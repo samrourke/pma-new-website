@@ -1,0 +1,35 @@
+.header {
+  position: relative;
+  z-index: 3;
+  padding-left: var(--padding-leftright);
+  padding-right: var(--padding-leftright);
+  margin-bottom: clamp(20px, 3vw, 28px);
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.kicker {
+  margin: 0 0 10px 0;
+  font-size: var(--fs--p);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  /* color:var(--offWhite); */
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.title {
+  margin: 0;
+font-size: clamp(4rem, 10vw, 8rem);;
+  /* font-size: clamp(6rem, 10vw, 10rem); */
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  /* color: var(--offWhite); */
+  font-family: var(--font-gravity), sans-serif;
+  font-stretch: 90%;
+  font-variation-settings: "wght" 550, "ital" 6;
+  /* max-width: 12ch; */
+  text-transform:uppercase;
+}

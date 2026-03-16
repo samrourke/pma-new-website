@@ -1,0 +1,388 @@
+.gateway {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--ink);
+  cursor: none;
+
+}
+
+.bgLayers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bgPanel {
+  position: absolute;
+  inset: 0;
+  transform: scaleY(0);
+  will-change: transform, opacity;
+}
+
+.londonBg {
+  background: var(--london);
+}
+
+.parisBg {
+  background: var(--paris);
+}
+
+.sheetLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sheetCell {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 10px;
+  opacity: 0;
+  will-change: transform, opacity;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+  outline: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sheetMedia {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.londonCellA {
+  left: 18vw;
+  top: 20vh;
+  width: 24vw;
+  aspect-ratio: 16 / 10;
+}
+
+.londonCellB {
+  left: 30vw;
+  top: 36vh;
+  width: 22vw;
+  aspect-ratio: 4 / 5;
+}
+
+.londonCellC {
+  left: 22vw;
+  top: 52vh;
+  width: 14vw;
+  aspect-ratio: 1 / 1;
+}
+.parisCellA {
+  right: 18vw;
+  top: 20vh;
+  width: 24vw;
+  aspect-ratio: 16 / 10;
+}
+
+.parisCellB {
+  right: 30vw;
+  top: 36vh;
+  width: 22vw;
+  aspect-ratio: 4 / 5;
+}
+
+.parisCellC {
+  right: 22vw;
+  top: 52vh;
+  width: 14vw;
+  aspect-ratio: 1 / 1;
+}
+
+.sheetFrameLines {
+  position: absolute;
+  inset: 5vh 5vw;
+  /* border: 1px solid rgba(255, 255, 255, 0.5); */
+  opacity: 0.35;
+}
+
+.gatewayInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+/* .logoWrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  pointer-events: none;
+
+}
+
+.logo {
+  width: min(190vw, 2400px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.25));
+}
+
+
+.subtitle{
+position: absolute;
+top:25vh;
+ color: var(--offWhite);
+ font-family: var(--font-gravity);
+ font-size:var(--fs-h2);
+ text-transform: uppercase;
+} */
+
+
+.logoWrapper {
+  position: relative;
+  display: inline-block;
+  transform-origin: center center;
+  will-change: transform;
+
+  height:100vh;
+  width:100%;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top:0;
+  left:0;
+
+
+
+ 
+}
+
+.subtitle {
+
+  display: none;
+
+
+  position: absolute;
+   top: 80%;
+  left: 50%; 
+  transform: translateX(-50%);
+  opacity: 0;
+  margin: 0;
+
+
+  font-family: var(--font-gravity);
+  font-size: var(--fs-h2);
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--offWhite);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.trailerWrap {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: min(34vw, 620px);
+  aspect-ratio: 16 / 9;
+  pointer-events: none;
+}
+
+.trailer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.cityNav {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 12vh;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(4rem, 10vw, 18rem);
+  width: 100%;
+  padding-inline: 2rem;
+}
+
+.city {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+
+  gap: 0.6rem;
+  color: var(--offWhite);
+  text-decoration: none;
+  font-family: var(--font-gravity);
+  letter-spacing: -0.04em;
+  
+
+  font-size: 10px;
+  opacity: 0;
+  transform: translateY(18px);
+
+}
+
+/* .cityLeft {
+  align-items: flex-start;
+}
+
+.cityRight {
+  align-items: flex-end;
+} */
+
+.cityLabel {
+  line-height: 0.95;
+  font-weight: 10px;
+  font-size: var(--fs-h1);
+  
+}
+
+.selectedLine {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.9);
+  transform: scaleX(0);
+}
+
+.selectedLineLondon {
+  transform-origin: left center;
+}
+
+.selectedLineParis {
+  transform-origin: right center;
+}
+
+.cursorDot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--offWhite);
+  pointer-events: none;
+  z-index: 20;
+  transform: translate(-50%, -50%);
+  /* mix-blend-mode: difference; */
+}
+
+.cursorText {
+  position: absolute;
+  left: 0;
+  top: 0;
+ 
+
+  pointer-events: none;
+  z-index: 20;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 4rem;
+  transform: translate(0, 0);
+  mix-blend-mode: hard-light;
+  white-space: nowrap;
+}
+
+
+.bottom{
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  text-align: right;
+  padding: 0 var(--padding-leftright);
+  font-family: var(--font-satoshi);
+ 
+  margin: auto;
+  color:var(--offWhite)
+
+}
+
+
+.socialDiv{
+  position: absolute;
+  z-index: 9;
+  top:0;
+  left:0;
+  display: none;
+}
+
+.socialLink{
+  color:var(--offWhite)
+}
+
+@media (max-width: 1024px) {
+  .sheetFrameLines {
+    display: none;
+  }
+
+  
+
+  .trailerWrap {
+    width: min(78vw, 420px);
+    top: 42%;
+    border-radius: 10px;
+  }
+
+  .cityNav {
+    bottom: 10vh;
+    gap: 1.5rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    padding-inline: 1.25rem;
+  }
+
+  .cityLabel {
+
+    letter-spacing: 0.03em;
+  }
+
+  /* keep only one preview per city */
+  .londonCellA,
+  .londonCellC,
+  .parisCellA,
+  .parisCellC {
+    display: none;
+  }
+
+  .londonCellB,
+  .parisCellB {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    top: 24vh;
+    width: 80vw;
+    max-width: 400px;
+  
+  }
+
+  .sheetCell {
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  
+  .cursorDot,
+  .cursorText {
+    display: none;
+  }
+
+  .gateway {
+    cursor: auto;
+  }
+}
+
+

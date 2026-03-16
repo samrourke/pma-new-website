@@ -1,0 +1,18 @@
+.main{
+    background-color:var(--offWhite);
+    min-height: 100vh;
+    padding: var(--padding-leftright);
+}
+
+.main p{
+    max-width: 50ch;
+}
+
+.title{
+    font-family: var(--font-mango);
+    font-size: 180px;
+    letter-spacing: 0.03em;
+    margin: 0;
+}
+
+
