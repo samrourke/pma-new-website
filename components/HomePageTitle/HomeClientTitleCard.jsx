@@ -130,6 +130,10 @@ export default function GatewayTitle() {
           scale: 0.98,
         });
 
+        gsap.set([cursor, cursorText], {
+          autoAlpha: 0,
+        });
+
         if (!isTablet && !isMobile && cursor && cursorText) {
           gsap.set([cursor, cursorText], {
             autoAlpha: 0,
@@ -211,6 +215,9 @@ export default function GatewayTitle() {
             },
             1.45,
           )
+          .to([cursor, cursorText], {
+            autoAlpha: 1,
+          })
           .to(
             subtitle,
             {
@@ -258,6 +265,7 @@ export default function GatewayTitle() {
 
   useEffect(() => {
     if (!introComplete) return;
+
     if (window.matchMedia("(max-width: 1024px)").matches) return;
 
     const container = containerRef.current;
@@ -265,6 +273,23 @@ export default function GatewayTitle() {
     const cursorText = cursorTextRef.current;
 
     if (!container || !cursor || !cursorText) return;
+
+    const rect = container.getBoundingClientRect();
+    const startX = rect.width / 2;
+    const startY = rect.height / 2;
+
+    // Set initial position in the centre of the gateway
+    gsap.set(cursor, {
+      x: startX,
+      y: startY,
+      autoAlpha: 1,
+    });
+
+    gsap.set(cursorText, {
+      x: startX + 28,
+      y: startY + 28,
+      autoAlpha: 1,
+    });
 
     const moveCursor = (e) => {
       const rect = container.getBoundingClientRect();
@@ -276,6 +301,7 @@ export default function GatewayTitle() {
         y,
         duration: 0.18,
         ease: "power3.out",
+        overwrite: true,
       });
 
       gsap.to(cursorText, {
@@ -283,6 +309,7 @@ export default function GatewayTitle() {
         y: y + 28,
         duration: 0.28,
         ease: "power3.out",
+        overwrite: true,
       });
     };
 

@@ -275,24 +275,22 @@ top:25vh;
   pointer-events: none;
   z-index: 20;
   transform: translate(-50%, -50%);
-  /* mix-blend-mode: difference; */
+  mix-blend-mode: difference;
 }
 
 .cursorText {
   position: absolute;
   left: 0;
   top: 0;
- 
-
   pointer-events: none;
   z-index: 20;
-  color: white;
+  color: var(--offWhite);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 4rem;
-  transform: translate(0, 0);
-  mix-blend-mode: hard-light;
+  line-height: 1;
   white-space: nowrap;
+  mix-blend-mode: difference;
 }
 
 

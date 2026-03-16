@@ -24,17 +24,52 @@ export default function London() {
 
     if (!heroSlot || !heroContent) return;
 
-    if (adoptedVideo) {
-      heroSlot.innerHTML = "";
-      heroSlot.appendChild(adoptedVideo);
-
-      gsap.set(adoptedVideo, {
+    const applyVideoStyles = (videoEl) => {
+      gsap.set(videoEl, {
         clearProps: "all",
         width: "100%",
         height: "100%",
         objectFit: "cover",
         position: "absolute",
         inset: 0,
+      });
+    };
+
+    const createFallbackVideo = () => {
+      const video = document.createElement("video");
+      video.className = styles.heroVideo;
+      video.src = "/video/clip_04.mp4";
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = "auto";
+      return video;
+    };
+
+    heroSlot.innerHTML = "";
+
+    let videoToUse = null;
+
+    if (adoptedVideo && adoptedVideo.tagName === "VIDEO") {
+      const adoptedSrc = adoptedVideo.currentSrc || adoptedVideo.src;
+
+      if (adoptedSrc) {
+        videoToUse = adoptedVideo;
+      }
+    }
+
+    if (!videoToUse) {
+      videoToUse = createFallbackVideo();
+    }
+
+    heroSlot.appendChild(videoToUse);
+    applyVideoStyles(videoToUse);
+
+    const playPromise = videoToUse.play?.();
+    if (playPromise?.catch) {
+      playPromise.catch(() => {
+        // autoplay may be blocked briefly, but muted video should usually recover
       });
     }
 
@@ -69,18 +104,7 @@ export default function London() {
     <div className={styles.container}>
       <main className={styles.london}>
         <section className={styles.hero} data-nav-theme="light">
-          <div ref={heroMediaSlotRef} className={styles.heroMediaSlot}>
-            {!transitionStore.activeVideoEl && (
-              <video
-                className={styles.heroVideo}
-                src="/video/clip_02.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-              />
-            )}
-          </div>
+          <div ref={heroMediaSlotRef} className={styles.heroMediaSlot} />
 
           <div className={styles.heroOverlay} />
 
