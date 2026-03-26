@@ -18,10 +18,15 @@ export default function NavWidget() {
 
   const accentColor = pathname === "/paris" ? "var(--paris)" : "var(--london)";
 
+  const hoverColor =
+    pathname === "/london"
+      ? "brightness(0) saturate(100%) invert(58%) sepia(91%) saturate(6493%) hue-rotate(344deg) brightness(97%) contrast(87%);"
+      : "brightness(0) saturate(100%) invert(30%) sepia(57%) saturate(424%) hue-rotate(160deg) brightness(97%) contrast(89%);";
+
   const links = [
     { label: "london", href: "/london" },
     { label: "paris", href: "/paris" },
-    { label: "contact", href: "/contact" },
+    { label: "contact", href: "#contact" },
   ];
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
@@ -199,7 +204,7 @@ export default function NavWidget() {
           <span />
           <span />
         </span>
-        <span className={styles.toggleLabel}>{open ? "Close" : "Menu"}</span>
+        {/* <span className={styles.toggleLabel}>{open ? "Close" : "Menu"}</span> */}
       </button>
 
       <div
@@ -263,9 +268,8 @@ export default function NavWidget() {
             href="https://vimeo.com/pmafilmtv"
             target="_blank"
             rel="noreferrer"
-            style={{ "--hover-colour": accentColor }}
           >
-            <h2>Vimeo</h2>
+            <img className={styles.socialImg} src="/images/socials/vimeo.png" />
           </a>
 
           <a
@@ -273,9 +277,8 @@ export default function NavWidget() {
             href="https://www.instagram.com/pmafilms/"
             target="_blank"
             rel="noreferrer"
-            style={{ "--hover-colour": accentColor }}
           >
-            <h2>Insta</h2>
+            <img className={styles.socialImg} src="/images/socials/insta.png" />
           </a>
         </div>
 

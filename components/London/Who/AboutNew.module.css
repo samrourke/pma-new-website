@@ -36,7 +36,7 @@
   line-height: 0.99;
   letter-spacing: -0.01em;
   font-size: clamp(4rem, 9vw, 15rem);
-  font-family: var(--font-mango);
+  font-family: var(--font-);
   font-weight: 600;
   color: var(--offWhite);
   will-change: transform, opacity;

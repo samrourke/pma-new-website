@@ -1,9 +1,11 @@
 .wrap {
   position: fixed;
   inset: 0;
+  width:50vw;
   z-index: 99;
   pointer-events: none;
   display: none;
+
 }
 
 /* TOGGLE */
@@ -100,6 +102,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  border-right: 1px solid var(--ink);
 }
 
 .isOpen {
@@ -111,20 +114,20 @@
   position: absolute;
   left: var(--padding-leftright);
   bottom: var(--padding-topbottom);
-  max-width: 460px;
+  max-width: 360px;
 }
 
 .logo {
-  width: clamp(120px, 28vw, 300px);
+  width: clamp(90px, 20vw, 200px);
   height: auto;
   filter: invert(1);
 }
 
 .logoText {
   margin: 0.5rem 0 0 0;
-  font-family: var(--font-gravity, system-ui);
+  font-family: var(--font-gravity, sans-serif);
   color: var(--ink);
-  font-size: clamp(1.4rem, 2.6vw, 2.4rem);
+  font-size: var(--fs-h6);
   line-height: 0.95;
 }
 
@@ -151,7 +154,7 @@
    display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
+  gap: 20px;
   z-index: 2;
  
 }
@@ -161,7 +164,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  font-size: var(--fs-h1);
+  font-size: var(--fs-h2);
   line-height: 0.9;
   color: var(--ink);
   text-decoration: none;
@@ -192,15 +195,28 @@
   color: var(--hover-colour);
 }
 
+.socialImg{
+  height:45px;
+  width:auto;
+  transition:   0.3s ease;
+  
 
-
-.socialLink {
-  color: var(--ink);
-  transition: color 0.3s ease;
 }
 
-.socialLink:hover {
-  color: var(--hover-colour);
+/* .socialLink {
+  color: var(--ink);
+  transition: color 0.3s ease;
+  font-size: var(--fs-h4);
+}
+
+
+.socialText{
+  font-size: var(--fs-h4);
+} */
+
+.socialImg:hover {
+  
+  scale:1.02
 }
 
 

@@ -9,34 +9,50 @@
 .headerWrap {
   position: absolute;
   inset: 0 0 auto 0;
-  z-index: 10;
+  z-index: 2;
   pointer-events: none;
   opacity: 0;
   transform: translateY(50px);
 }
 
 .description{
-
-   
-
-   
-    width:52ch;
-    max-width: 60%;
-    
-    
-    text-align: right;
+    text-align: left;
     opacity: 0;
     transform: translateY(50px);
-  
-
+    display: flex;
+    flex-direction: column;
+    gap:1rem
 
 }
 
 .copy{
-    font-size: var(--fs-h5);
-    color:var(--london);
-  
-    font-weight: 400;
+     margin: 0;
+  font-family: var(--font-satoshi), sans-serif;
+  text-align: left;
+  color: var(--london);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  max-width: 28ch;
+  text-wrap: balance;
+}
+
+
+
+.stackWrap {
+  position: relative;
+}
+
+.stack {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
 }
 
 .stack {
@@ -104,11 +120,10 @@
 
 .content h2 {
   margin: 0 0 14px 0;
-  font-family: var(--font-mango);
-  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-family: var(--font-gravity);
+  font-size: clamp(2rem, 5vw, 4rem);
   line-height: 0.92;
- 
-  color: var(--offWhite);
+  color: var(--offWhute);
 }
 
 .content p {
@@ -117,7 +132,7 @@
   font-family: var(--font-satoshi);
   font-size: var(--fs-h5);
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--offWhite)
 }
 
 /*watch button*/
@@ -179,7 +194,7 @@
 
   display: block;
   background: #000;
-  border-radius: 18px;
+  /* border-radius: 18px; */
   overflow: hidden;
 }
 

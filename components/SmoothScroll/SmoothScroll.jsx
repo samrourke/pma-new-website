@@ -13,7 +13,8 @@ export default function SmoothScroll({ children }) {
 
   const createLenis = () => {
     const lenis = new Lenis({
-      duration: 1.4,
+      lerp: 0.9, // Smoothness factor (0.0 to 1.0)
+      duration: 1.5, // Total duration
       smoothWheel: true,
       smoothTouch: false,
     });

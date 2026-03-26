@@ -1,43 +1,75 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 import styles from "./What.module.css";
 import Header from "../../Header/Header";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-export default function What() {
+const What = forwardRef(function What(_, ref) {
   const sectionRef = useRef(null);
   const panelsRef = useRef([]);
-  const endRef = useRef(null);
   const headerRef = useRef(null);
   const descriptionRef = useRef(null);
   const modalVideoRef = useRef(null);
-
+  const triggerRef = useRef(null);
   const [activeVideo, setActiveVideo] = useState(null);
 
   const services = [
     {
-      number: "01 / 03",
-      title: "Press",
-      text: "International press junkets, screenings and Q&As delivered with precision and experience.",
-      video: "/video/press.mp4",
-    },
-    {
-      number: "02 / 03",
-      title: "Creative",
+      title: "CREATIVE PRODUCTION",
       text: "Behind-the-scenes films, branded content and campaign storytelling built for modern audiences.",
       video: "/video/trailer.mp4",
+      id: "creative",
     },
     {
-      number: "03 / 03",
-      title: "Post Production",
-      text: "Editing, finishing and delivery handled in-house to keep every campaign sharp, cohesive and on time.",
+      title: "PUBLICITY PRODUCTION",
+      text: "International press junkets, screenings and Q&As delivered with precision and experience.",
       video: "/video/press.mp4",
+      id: "publicity",
+    },
+    {
+      title: "POST PRODUCTION",
+      text: "Editing, finishing and delivery handled in-house to keep every campaign sharp, cohesive and on time.",
+      video: "/video/trailer.mp4",
+      id: "post",
     },
   ];
+
+  useImperativeHandle(ref, () => ({
+    goToPanel(panelId) {
+      const st = triggerRef.current;
+      const section = sectionRef.current;
+      if (!st || !section) return;
+
+      const progressMap = {
+        creative: 0.3,
+        publicity: 0.62,
+        post: 1,
+      };
+
+      const targetProgress = progressMap[panelId];
+      if (targetProgress == null) return;
+
+      const targetScroll = st.start + (st.end - st.start) * targetProgress;
+
+      gsap.to(window, {
+        duration: 3,
+        ease: "power1.inOut",
+        scrollTo: targetScroll,
+      });
+    },
+  }));
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -54,7 +86,7 @@ export default function What() {
     const ctx = gsap.context(() => {
       if (reduceMotion) return;
 
-      gsap.set(panels[0], { yPercent: 50 });
+      gsap.set(panels[0], { yPercent: 70 });
       gsap.set(panels[1], { yPercent: 100 });
       gsap.set(panels[2], { yPercent: 200 });
 
@@ -69,9 +101,10 @@ export default function What() {
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          // markers: true,
         },
       });
+
+      triggerRef.current = tl.scrollTrigger;
 
       gsap
         .timeline({
@@ -85,38 +118,23 @@ export default function What() {
         .to([header, description], { opacity: 1, y: 0, ease: "none" });
 
       tl.to({}, { duration: 0.25 });
-
-      tl.to(panels[0], {
-        yPercent: 0,
-        ease: "none",
-        duration: 1,
-      });
+      tl.to(panels[0], { yPercent: 0, ease: "none", duration: 1 });
       tl.to({}, { duration: 0.25 });
-
-      tl.to(panels[1], {
-        yPercent: 0,
-        ease: "none",
-        duration: 1,
-      });
+      tl.to(panels[1], { yPercent: 0, ease: "none", duration: 1 });
       tl.to({}, { duration: 0.25 });
-
-      tl.to(panels[2], {
-        yPercent: 0,
-        ease: "none",
-        duration: 1,
-      });
+      tl.to(panels[2], { yPercent: 0, ease: "none", duration: 1 });
       tl.to({}, { duration: 0.35 });
     }, section);
 
-    return () => ctx.revert();
+    return () => {
+      triggerRef.current = null;
+      ctx.revert();
+    };
   }, []);
 
   useEffect(() => {
-    if (activeVideo) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (activeVideo) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
 
     return () => {
       document.body.style.overflow = "";
@@ -125,9 +143,7 @@ export default function What() {
 
   useEffect(() => {
     function handleKeyDown(e) {
-      if (e.key === "Escape") {
-        setActiveVideo(null);
-      }
+      if (e.key === "Escape") setActiveVideo(null);
     }
 
     window.addEventListener("keydown", handleKeyDown);
@@ -136,77 +152,68 @@ export default function What() {
 
   useEffect(() => {
     if (!activeVideo || !modalVideoRef.current) return;
-
-    const video = modalVideoRef.current;
-
-    // Try to start playback with sound after user interaction
-    const playPromise = video.play();
-    if (playPromise?.catch) {
-      playPromise.catch(() => {
-        // Some browsers may still block; controls remain available
-      });
-    }
+    modalVideoRef.current.play?.().catch(() => {});
   }, [activeVideo]);
 
   return (
     <>
-      <section className={styles.what} ref={sectionRef} data-nav-theme="dark">
+      <section
+        id="what"
+        className={styles.what}
+        ref={sectionRef}
+        data-nav-theme="dark"
+      >
         <div className={styles.headerWrap} ref={headerRef}>
           <Header
             number="02"
             title="What We Do"
             textColor="var(--london)"
-            align="flex-end"
+            align="flex-start"
             paddingT="var(--padding-topbottom)"
             textAlign="left"
           >
             <div className={styles.description} ref={descriptionRef}>
+              <p className={styles.copy}>We build campaigns end to end.</p>
               <p className={styles.copy}>
-                At PMA we work across whole campaigns, from BTS and creative
-                content through post production to press and promotion.
+                From BTS and creative content through post production to press
+                and promotion.
               </p>
             </div>
           </Header>
         </div>
 
         <div className={styles.stack}>
-          {services.map((service, i) => {
-            return (
-              <article
-                data-nav-theme="light"
-                key={service.title}
-                ref={(el) => (panelsRef.current[i] = el)}
-                className={styles.panel}
-              >
-                <video
-                  className={styles.video}
-                  src={service.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  ref={i === 2 ? endRef : null}
-                />
+          {services.map((service, i) => (
+            <article
+              data-nav-theme="light"
+              key={service.title}
+              ref={(el) => (panelsRef.current[i] = el)}
+              className={styles.panel}
+            >
+              <video
+                className={styles.video}
+                src={service.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+              <div className={styles.overlay} />
+              <div className={styles.content}>
+                <h2>{service.title}</h2>
+                {/* <p>{service.text}</p> */}
 
-                <div className={styles.overlay} />
-
-                <div className={styles.content}>
-                  <span className={styles.number}>{service.number}</span>
-                  <h2>{service.title}</h2>
-                  <p>{service.text}</p>
-
-                  <button
-                    type="button"
-                    className={styles.watchButton}
-                    onClick={() => setActiveVideo(service.video)}
-                    aria-label={`Watch ${service.title} video full screen`}
-                  >
-                    Play reel
-                  </button>
-                </div>
-              </article>
-            );
-          })}
+                <button
+                  type="button"
+                  className={styles.watchButton}
+                  onClick={() => setActiveVideo(service.video)}
+                  aria-label={`Watch ${service.title} video full screen`}
+                >
+                  Play reel
+                </button>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -245,172 +252,6 @@ export default function What() {
       )}
     </>
   );
-}
+});
 
-// "use client";
-
-// import { useLayoutEffect, useRef } from "react";
-// import gsap from "gsap";
-// import ScrollTrigger from "gsap/ScrollTrigger";
-// import styles from "./What.module.css";
-// import Header from "../../Header/Header";
-
-// gsap.registerPlugin(ScrollTrigger);
-
-// export default function What() {
-//   const sectionRef = useRef(null);
-//   const panelsRef = useRef([]);
-//   const endRef = useRef(null);
-//   const headerRef = useRef(null);
-//   const descriptionRef = useRef(null);
-
-//   const services = [
-//     {
-//       number: "01 / 03",
-//       title: "Press",
-//       text: "International press junkets, screenings and Q&As delivered with precision and experience.",
-//       video: "/video/press.mp4",
-//     },
-//     {
-//       number: "02 / 03",
-//       title: "Creative",
-//       text: "Behind-the-scenes films, branded content and campaign storytelling built for modern audiences.",
-//       video: "/video/trailer.mp4",
-//     },
-//     {
-//       number: "03 / 03",
-//       title: "Post Production",
-//       text: "Editing, finishing and delivery handled in-house to keep every campaign sharp, cohesive and on time.",
-//       video: "/video/press.mp4",
-//     },
-//   ];
-
-//   useLayoutEffect(() => {
-//     const section = sectionRef.current;
-//     const panels = panelsRef.current.filter(Boolean);
-//     const header = headerRef.current;
-//     const description = descriptionRef.current;
-
-//     if (!section || !panels.length) return;
-
-//     const reduceMotion = window.matchMedia(
-//       "(prefers-reduced-motion: reduce)",
-//     ).matches;
-
-//     const ctx = gsap.context(() => {
-//       if (reduceMotion) return;
-
-//       gsap.set(panels[0], { yPercent: 50 });
-//       gsap.set(panels[1], { yPercent: 100 });
-//       gsap.set(panels[2], { yPercent: 200 });
-
-//       gsap.set([header, description], { opacity: 0, y: 50 });
-
-//       const tl = gsap.timeline({
-//         scrollTrigger: {
-//           trigger: section,
-//           start: "top top",
-//           end: `+=${window.innerHeight * 4.25}`,
-//           scrub: 1,
-//           pin: true,
-//           anticipatePin: 1,
-//           invalidateOnRefresh: true,
-//           //   markers: true,
-//         },
-//       });
-
-//       // Title cover wipe
-//       gsap
-//         .timeline({
-//           scrollTrigger: {
-//             trigger: section,
-//             start: "top bottom-=200",
-//             end: "+=200",
-//             invalidateOnRefresh: true,
-//           },
-//         })
-//         .to([header, description], { opacity: 1, y: 0, ease: "none" });
-
-//       // breathing room before panel 1 locks in
-//       tl.to({}, { duration: 0.25 });
-
-//       // panel 1 rises into place
-//       tl.to(panels[0], {
-//         yPercent: 0,
-//         ease: "none",
-//         duration: 1,
-//       });
-//       tl.to({}, { duration: 0.25 });
-
-//       // panel 2 stays offscreen until panel 1 is fully in place
-//       tl.to(panels[1], {
-//         yPercent: 0,
-//         ease: "none",
-//         duration: 1,
-//       });
-//       tl.to({}, { duration: 0.25 });
-
-//       // panel 3 stays offscreen until panel 2 is fully in place
-//       tl.to(panels[2], {
-//         yPercent: 0,
-//         ease: "none",
-//         duration: 1,
-//       });
-//       tl.to({}, { duration: 0.35 });
-//     }, section);
-
-//     return () => ctx.revert();
-//   }, []);
-
-//   return (
-//     <section className={styles.what} ref={sectionRef} data-nav-theme="dark">
-//       <div className={styles.headerWrap} ref={headerRef}>
-//         <Header
-//           number="02"
-//           title="What We Do"
-//           textColor="var(--london)"
-//           align="flex-end"
-//           paddingT="var(--padding-topbottom)"
-//           textAlign="left"
-//         >
-//           <div className={styles.description} ref={descriptionRef}>
-//             <p className={styles.copy}>
-//               At PMA we work across whole campaigns, from BTS and creative
-//               content through post production to press and promotion.
-//             </p>
-//           </div>
-//         </Header>
-//       </div>
-
-//       <div className={styles.stack}>
-//         {/* <div className={styles.index}>01</div> */}
-//         {services.map((service, i) => {
-//           return (
-//             <article
-//               data-nav-theme="light"
-//               key={service.title}
-//               ref={(el) => (panelsRef.current[i] = el)}
-//               className={styles.panel}
-//             >
-//               <video
-//                 className={styles.video}
-//                 src={service.video}
-//                 autoPlay
-//                 muted
-//                 loop
-//                 playsInline
-//                 ref={i === 2 ? endRef : null}
-//               />
-//               <div className={styles.overlay} />
-//               <div className={styles.content}>
-//                 <span className={styles.number}>{service.number}</span>
-//                 <h2>{service.title}</h2>
-//                 <p>{service.text}</p>
-//               </div>
-//             </article>
-//           );
-//         })}
-//       </div>
-//     </section>
-//   );
-// }
+export default What;

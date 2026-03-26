@@ -42,12 +42,31 @@ export default function Footer() {
             <p>France</p>
           </div>
         </div>
-        <div className={styles.contact}>
+        <div className={styles.socialDiv}>
+          <a
+            className={styles.socialLink}
+            href="https://vimeo.com/pmafilmtv"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img className={styles.socialImg} src="/images/socials/vimeo.png" />
+          </a>
+
+          <a
+            className={styles.socialLink}
+            href="https://www.instagram.com/pmafilms/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img className={styles.socialImg} src="/images/socials/insta.png" />
+          </a>
+        </div>
+        {/* <div className={styles.contact}>
           <p>Get In Touch</p>
           <a href="mailto:info@pmafilmtv.com" className={styles.link}>
             info@pmafilmtv.com
           </a>
-        </div>
+        </div> */}
       </div>
       <div className={styles.legal}>
         <Link href="/privacy-policy" className={styles.legalLink}>

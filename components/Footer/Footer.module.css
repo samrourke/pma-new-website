@@ -1,3 +1,7 @@
+:root{
+  --cream-filter: brightness(0) saturate(100%) invert(87%) sepia(19%) saturate(284%) hue-rotate(352deg) brightness(105%) contrast(98%);
+}
+
 .footer {
   min-height: 30rem;
   width: 100%;
@@ -41,11 +45,13 @@
 .logo {
    width: min(35vw, 300px);
    height: auto;  
+     filter: var(--cream-filter);
 }
 
 .tag{
   display: flex;
   flex-wrap: wrap;
+
 
 }
 
@@ -55,6 +61,7 @@ font-size: var(--fs-h3);
 margin: 0;
 padding: 0;
 line-height: 1.1;
+text-transform: uppercase;
 }
 
 .tagline span{
@@ -115,6 +122,25 @@ line-height: 1.1;
   font-size:var(--fs-p);
   letter-spacing: 0.12em;
   opacity: 0.8;
+}
+
+.socialDiv{
+
+  display: flex;
+  gap:2rem;
+
+
+}
+
+.socialImg{
+  height:50px;
+  width:auto;
+  transition: 0.3s ease;
+  filter: var(--cream-filter);
+}
+
+.socialImg:hover{
+  scale: 1.01
 }
 
 .link {

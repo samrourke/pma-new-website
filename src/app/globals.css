@@ -20,7 +20,7 @@
   /*70s Font Colour Picks*/
 
   --london:#e93d36;
-  --paris:#2f566f;
+  --paris:#345f7a;
   --ink: #1d1c1c;
 
   /*Pantone 70s*/
@@ -40,10 +40,16 @@
 
 /*electic blue*/
 
---paris:#002eff;
+/* --paris:#002eff; */
 
+/*pastel*/
+/* --paris: #5AA9E6;  */
 
- 
+/*vibrant */
+  /* --paris: #2364aa;  */
+
+/*denim */
+    /* --paris:#345f7a;  */
   
 /*PADDING*/
 
@@ -52,7 +58,7 @@
     
      /* Headings */
   --fs-h1: clamp(2.6rem, 1.6rem + 4vw, 6rem);
-  --fs-h2: clamp(2.4rem, 1.4rem + 2.2vw, 3.2rem);
+  --fs-h2: clamp(2.4rem, 1.4rem + 2.2vw, 2.7rem);
   --fs-h3: clamp(1.2rem, 1.2rem + 1vw, 2.2rem);
   --fs-h4: clamp(1.5rem, 1.05rem + 1.3vw, 2rem);
   --fs-h5: clamp(1.25rem, 1rem + 1vw, 1.6rem);
@@ -105,7 +111,7 @@ body {
 
 .sectionTitle {
   font-size: clamp(8rem, 4rem + 8vw, 12rem);
-  font-family: var(--font-mango);
+  font-family: var(--font-gravity);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.01em;
@@ -170,7 +176,7 @@ button{
 
 /* .sectionTitle {
   font-size: clamp(8rem, 4rem + 8vw, 12rem);
-  font-family: var(--font-mango);
+  font-family: var(--font-);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.01em;

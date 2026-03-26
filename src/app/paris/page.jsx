@@ -6,12 +6,6 @@ import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { transitionStore } from "../../../components/PageTransition/transitionstore";
-import Partners from "../../../components/Partners/Partners";
-import Footer from "../../../components/Footer/Footer";
-import AboutUs from "../../../components/London/Who/AboutUs";
-import What from "../../../components/London/What/What";
-import Contact from "../../../components/London/Contact/Contact";
-import Team from "../../../components/London/Team/Team";
 
 export default function London() {
   const heroMediaSlotRef = useRef(null);

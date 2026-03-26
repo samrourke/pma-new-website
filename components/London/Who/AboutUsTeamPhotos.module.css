@@ -1,0 +1,357 @@
+.about {
+  position: relative;
+  background: var(--london);
+  color: var(--offWhite);
+
+}
+
+.headerWrap {
+  background: var(--london);
+  padding-top: clamp(1.25rem, 2vw, 2rem);
+  padding-bottom: clamp(1.25rem, 2vw, 2rem);
+}
+
+.contentContainer {
+  padding:var(--padding-leftright);
+  
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  margin-bottom: clamp(2rem, 6vw, 5rem);
+ 
+}
+
+.bodyRow {
+  position: relative;
+  min-height: 1200px;
+  
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  margin-top: 10rem;
+}
+
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.left {
+  grid-column: 1 / 6;
+}
+
+.right {
+  grid-column: 8 / 12;
+}
+
+/* .center {
+  position: relative;
+  z-index: 3;
+  width: min(30rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 3vw, 3rem);
+  text-align: center;
+  align-items: flex-end;
+  margin-top: 3rem;
+  padding-top: clamp(5rem, 6vw, 6.5rem);
+  margin-right: clamp(1rem, 3vw, 3rem);
+} */
+
+.center {
+  z-index: 3;
+  width: min(28rem, 100%);
+  gap: 1.75rem;
+  margin-top: 1rem;
+  padding-top: 4rem;
+  margin-right: clamp(1rem, 3vw, 3rem);
+    align-items: flex-end;
+}
+
+.center .body:nth-child(1) {
+  max-width: 22ch;
+  
+}
+
+.center .body:nth-child(2) {
+  max-width: 24ch;
+  
+}
+
+.center .body:nth-child(3) {
+  max-width: 18ch;
+  
+}
+
+.leadBlock {
+  margin-bottom: clamp(1rem, 2vw, 2rem);
+  
+  grid-column: 1/6;
+}
+
+
+
+.lead {
+  margin: 0;
+  max-width: 14ch;
+  font-family: var(--font-gravity);
+  font-size: var(--fs-h2);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+
+}
+
+.body {
+  margin: 0;
+  font-family: var(--font-gravity);
+  font-size: var(--fs-h4);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.25rem;
+  text-align: right;
+}
+
+
+
+/* IMAGES */
+
+.imgBlockRight {
+  grid-column: 6 / 12;
+  width: 100%;
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+}
+
+.bodyImgBlock {
+  position: absolute;
+  margin-top:-17rem;
+  margin-left: 2rem;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(18, minmax(0, 1fr));
+  pointer-events: none;
+}
+
+/* .bodyImgBlock {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(14, minmax(0, 1fr));
+  pointer-events: none;
+} */
+
+/* .imageCardTop {
+  grid-column: 1 / 6;
+  grid-row: 2 / 5;
+}
+
+.imageCardMiddle {
+  grid-column: 4 / 10;
+  grid-row: 6 / 10;
+}
+
+.imageCardBottom {
+  grid-column: 2 / 5;
+  grid-row: 10 / 13;
+} */
+
+
+  
+
+.imgMask {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1.6 / 1;
+  overflow: hidden;
+  /* border-radius: 5px; */
+  background: var(--offWhite);
+  will-change: clip-path;
+ 
+}
+
+.imgInner {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  /* border-radius: 20px; */
+}
+
+.imgMask,
+.imgInner {
+  border-radius: 4px;
+}
+
+.imgBlockLeft {
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-self: start;
+  padding-right: clamp(0.5rem, 1vw, 1.25rem);
+}
+
+
+.imgMask {
+  position: relative;
+  width: 100%;
+
+  overflow: hidden;
+  /* border-radius: 18px; */
+  background:transparent;
+  will-change: clip-path, transform;
+}
+
+.imageCard {
+  position: relative;
+  will-change: transform, opacity;
+}
+
+.leadImageCard {
+  z-index: 2;
+}
+
+
+
+.imageCardTop {
+  grid-column: 1 / 5;
+  grid-row: 3;
+   transform: translateX(-0.5rem);
+}
+
+.imageCardMiddle {
+  grid-column: 4 / 7;
+  grid-row: 5;
+ 
+}
+
+.imageCardThird {
+  grid-column: 6 /10;
+  grid-row: 8;
+  transform: translateX(-2rem);
+ 
+}
+
+.imageCardFourth {
+  grid-column: 2 / 6;
+  grid-row: 9;
+
+ 
+}
+
+.imageCardFifth {
+  grid-column: 2 / 6;
+  grid-row: 16;
+
+ 
+}
+
+.imageCardSixth {
+  grid-column: 8 / 12;
+  grid-row: 16;
+
+ 
+}
+
+
+.imageCardBottom {
+  grid-column:4 / 6;
+  grid-row: 14;
+}
+
+.imageCardTop .imgMask {
+  aspect-ratio: 16 / 12;
+  min-width:300px;
+  
+}
+
+.imageCardMiddle .imgMask {
+  aspect-ratio: 1.25 / 1;
+  min-width:300px;
+}
+
+.imageCardThird .imgMask {
+  aspect-ratio: 1.1 / 1;
+  min-width:280px;
+}
+
+.imageCardFourth .imgMask {
+  aspect-ratio: 1 / 1.3;
+  min-width: 200px
+}
+
+.imageCardFifth .imgMask {
+  aspect-ratio: 1.4 / 1;
+  min-width:300px;
+}
+
+.imageCardSixth .imgMask {
+  aspect-ratio: 0.9 / 1;
+  min-width:200px;
+}
+
+.imageCardBottom .imgMask {
+  aspect-ratio: 1.3 / 1;
+  min-width:300px;
+  transform: translate(20%, -20%);
+}
+
+.imgInner {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.leadImg {
+  object-position: center 38%;
+}
+
+@media (max-width: 900px) {
+  .row {
+    grid-template-columns: 1fr;
+    margin-bottom: 2rem;
+  }
+
+  .left,
+  .right {
+    grid-column: auto;
+  }
+
+  .lead {
+    max-width: 11ch;
+    
+  }
+
+  .body,
+  .closing {
+    max-width: 30ch;
+  }
+}
+
+@media (max-width: 640px) {
+  .contentContainer {
+    padding-bottom: 4rem;
+  }
+
+  .lead,
+  .body,
+  .closing {
+    max-width: none;
+  }
+}
