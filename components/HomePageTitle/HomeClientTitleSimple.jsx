@@ -94,7 +94,7 @@ export default function GatewayTitleSimple() {
     hoverTl.current?.kill();
 
     const tl = gsap.timeline({
-      defaults: { duration: 0.6, ease: "power3.out" },
+      defaults: { duration: 0.4, ease: "power3.out" },
     });
 
     if (activeCity === "london") {
