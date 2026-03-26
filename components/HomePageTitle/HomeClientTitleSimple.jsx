@@ -358,7 +358,7 @@ export default function GatewayTitleSimple() {
           </a>
         </nav>
 
-        <div className={styles.socials}>
+        {/* <div className={styles.socials}>
           <a
             href="https://vimeo.com/pmafilmtv"
             target="_blank"
@@ -373,7 +373,7 @@ export default function GatewayTitleSimple() {
           >
             Instagram
           </a>
-        </div>
+        </div> */}
       </div>
     </main>
   );

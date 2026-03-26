@@ -117,13 +117,24 @@
   margin: 0;
   font-family: var(--font-satoshi), sans-serif;
   text-align: right;
+ 
   
   font-weight: 500;
   font-size: var(--fs-h2);
-  line-height: 0.98;
+  line-height: 1;
   letter-spacing: -0.045em;
   max-width: 28ch;
   text-wrap: balance;
+}
+
+.splitLine {
+  /* overflow: hidden; */
+  display: block;
+}
+
+.statement :global(.word) {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
 /* .statement:nth-child(1){

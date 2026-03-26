@@ -23,10 +23,10 @@
   padding: 10px 14px;
   min-height: 42px;
 
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--offWhite);
   border-radius: 8px;
-  background: var(--offWhite);
-  color: var(--ink);
+  background: transparent;
+  
 
   cursor: pointer;
   pointer-events: auto;
@@ -64,6 +64,7 @@
   height: 1.5px;
   background: currentColor;
   transform-origin: center center;
+  color: var(--offWhite);
   transition:
     transform 0.25s ease,
     top 0.25s ease,
@@ -85,12 +86,14 @@
   top: 5px;
   width: 18px;
   transform: rotate(45deg);
+  color:var(--ink);
 }
 
 .open .icon span:last-child {
   top: 5px;
   width: 18px;
   transform: rotate(-45deg);
+   color:var(--ink);
 }
 
 /* PANEL */

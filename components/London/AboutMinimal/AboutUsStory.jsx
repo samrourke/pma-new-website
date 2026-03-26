@@ -5,11 +5,13 @@ import styles from "./AboutUsStory.module.css";
 import Header from "../../Header/Header";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import SplitText from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function AboutUsStory() {
   const sectionRef = useRef(null);
+  const statementRefs = useRef([]);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -44,9 +46,7 @@ export default function AboutUsStory() {
 
         gsap.fromTo(
           card,
-          {
-            y: 0,
-          },
+          { y: 0 },
           {
             y: offsets[i] || -24,
             filter: "contrast(1.09) brightness(0.9) saturate(0.92)",
@@ -68,6 +68,34 @@ export default function AboutUsStory() {
             start: "top bottom",
             end: "bottom top",
             scrub: true,
+          },
+        });
+      });
+
+      statementRefs.current.forEach((el) => {
+        if (!el) return;
+
+        const split = new SplitText(el, {
+          type: "words,lines",
+          linesClass: styles.splitLine,
+        });
+
+        gsap.set(split.words, {
+          yPercent: 110,
+          opacity: 0,
+          willChange: "transform, opacity",
+        });
+
+        gsap.to(split.words, {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.035,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 82%",
+            once: true,
           },
         });
       });
@@ -133,39 +161,24 @@ export default function AboutUsStory() {
           </div>
 
           <div className={styles.storyTextWrap}>
-            <h2 className={styles.statement}>
+            <h2
+              className={styles.statement}
+              ref={(el) => (statementRefs.current[0] = el)}
+            >
               PMA is a close-knit family of creatives who bring film and
               television campaigns to life.
             </h2>
-            <h2 className={styles.statement}>
+
+            <h2
+              className={styles.statement}
+              ref={(el) => (statementRefs.current[1] = el)}
+            >
               From international press to premieres, post-production and digital
               content, we have shaped how stories connect with audiences beyond
               the screen for over twenty years.
             </h2>
           </div>
         </div>
-
-        {/* <div className={styles.editorialGrid}>
-          <figure
-            className={`${styles.editorialCard} ${styles.editorialLandscape}`}
-          >
-            <img
-              src="/images/About/team-bridgetJones.jpeg"
-              alt="PMA team on set during a production"
-              className={styles.editorialImage}
-            />
-          </figure>
-
-          <figure
-            className={`${styles.editorialCard} ${styles.editorialPortrait}`}
-          >
-            <img
-              src="/images/About/team-cupcakes.jpeg"
-              alt="PMA team members at a client event"
-              className={styles.editorialImage}
-            />
-          </figure>
-        </div> */}
       </div>
     </section>
   );
