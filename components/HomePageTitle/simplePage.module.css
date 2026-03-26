@@ -6,6 +6,27 @@
   color: var(--offWhite);
 }
 
+.bgBase {
+  position: absolute;
+  inset: 0;
+  background: transparent
+}
+
+.cityBg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.londonBg {
+  background: var(--london);
+}
+
+.parisBg {
+  background: var(--paris);
+}
+
 .videoLayer {
   position: absolute;
   inset: 0;
@@ -68,7 +89,8 @@
   justify-content: center;
   gap: clamp(1.5rem, 6vw, 5rem);
   align-items: end;
-  padding-bottom: 2rem;
+  padding-bottom: 15vh;
+
 }
 
 .cityLink {
@@ -106,7 +128,7 @@
 .videoLayer,
 .hoverPanel,
 .hoverVideo {
-  background: var(--london); /* or black */
+  background: transparent; /* or black */
 }
 
 @media (max-width: 768px) {

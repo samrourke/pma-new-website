@@ -23,6 +23,9 @@ export default function GatewayTitleSimple() {
   const logoRef = useRef(null);
   const navRef = useRef(null);
 
+  const londonBgRef = useRef(null);
+  const parisBgRef = useRef(null);
+
   const londonPanelRef = useRef(null);
   const parisPanelRef = useRef(null);
   const londonVideoRef = useRef(null);
@@ -91,17 +94,26 @@ export default function GatewayTitleSimple() {
     hoverTl.current?.kill();
 
     const tl = gsap.timeline({
-      defaults: { duration: 0.45, ease: "power3.out" },
+      defaults: { duration: 0.6, ease: "power3.out" },
     });
 
     if (activeCity === "london") {
       tl.to(
-        containerRef.current,
+        londonBgRef.current,
         {
-          backgroundColor: "var(--london)",
+          autoAlpha: 1,
+          duration: 0.6,
         },
         0,
       )
+        .to(
+          parisBgRef.current,
+          {
+            autoAlpha: 0,
+            duration: 0.6,
+          },
+          0,
+        )
         .to(
           londonPanelRef.current,
           {
@@ -134,9 +146,22 @@ export default function GatewayTitleSimple() {
           0,
         );
     } else if (activeCity === "paris") {
-      tl.to(containerRef.current, {
-        backgroundColor: "var(--paris)",
-      })
+      tl.to(
+        parisBgRef.current,
+        {
+          autoAlpha: 1,
+          duration: 0.6,
+        },
+        0,
+      )
+        .to(
+          londonBgRef.current,
+          {
+            autoAlpha: 0,
+            duration: 0.6,
+          },
+          0,
+        )
         .to(
           parisPanelRef.current,
           {
@@ -285,6 +310,12 @@ export default function GatewayTitleSimple() {
       className={styles.gateway}
       onMouseLeave={() => setActiveCity(null)}
     >
+      <div className={styles.bgBase} />
+      <div
+        ref={londonBgRef}
+        className={`${styles.cityBg} ${styles.londonBg}`}
+      />
+      <div ref={parisBgRef} className={`${styles.cityBg} ${styles.parisBg}`} />
       <div className={styles.videoLayer}>
         <div
           ref={londonPanelRef}
