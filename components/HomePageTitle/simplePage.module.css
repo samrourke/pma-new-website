@@ -102,6 +102,13 @@
   font-size: 0.95rem;
 }
 
+
+.videoLayer,
+.hoverPanel,
+.hoverVideo {
+  background: var(--london); /* or black */
+}
+
 @media (max-width: 768px) {
   .hoverPanel {
     width: 100%;

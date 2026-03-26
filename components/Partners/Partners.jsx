@@ -36,7 +36,7 @@ export default function Partners() {
       gsap.to(shuffled, {
         autoAlpha: 0.9,
         duration: 0.45,
-        stagger: 0.1,
+        stagger: 0.05,
         ease: "power2.out",
         scrollTrigger: {
           trigger: section,

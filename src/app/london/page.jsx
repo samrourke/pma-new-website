@@ -130,7 +130,7 @@ export default function London() {
           opacity: 1,
           y: 0,
           duration: 0.8,
-          stagger: 0.2,
+
           ease: "power3.out",
         },
         0.28,
@@ -138,14 +138,19 @@ export default function London() {
       .to(subTextLinks, {
         autoAlpha: 1,
         opacity: 1,
-        stagger: 0.3,
+        duration: 0.03,
+        stagger: 0.4,
       })
-      .to(scrollCueEl, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.5,
-        ease: "power2.out",
-      })
+      .to(
+        scrollCueEl,
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        "+=0.2",
+      )
       .call(
         () => {
           window.dispatchEvent(new CustomEvent("pma-transition-reveal"));

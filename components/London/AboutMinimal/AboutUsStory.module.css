@@ -91,8 +91,17 @@
 
 .storyLabel {
   padding-top: clamp(0.4rem, 0.8vw, 0.75rem);
+  position: relative;
 }
-
+/* .storyLabel::after{
+  content:'';
+  position:absolute;
+  height:1px;
+  width:70%;
+  bottom: -10px;
+  color: var(--offWhite);
+  background-color: var(--offWhite);
+} */
 .storyLabel p {
   margin: 0;
   font-family: var(--font-gravity);

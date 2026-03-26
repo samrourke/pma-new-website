@@ -61,12 +61,6 @@ export default function Footer() {
             <img className={styles.socialImg} src="/images/socials/insta.png" />
           </a>
         </div>
-        {/* <div className={styles.contact}>
-          <p>Get In Touch</p>
-          <a href="mailto:info@pmafilmtv.com" className={styles.link}>
-            info@pmafilmtv.com
-          </a>
-        </div> */}
       </div>
       <div className={styles.legal}>
         <Link href="/privacy-policy" className={styles.legalLink}>

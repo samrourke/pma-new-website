@@ -72,10 +72,10 @@ export default function GatewayTitleSimple() {
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.65,
-            stagger: 0.12,
+            duration: 0.75,
+            stagger: 0.2,
           },
-          0.25,
+          1.4,
         );
     }, containerRef);
 
@@ -298,7 +298,7 @@ export default function GatewayTitleSimple() {
             muted
             loop
             playsInline
-            preload="metadata"
+            // preload="metadata"
           />
         </div>
 
@@ -314,7 +314,7 @@ export default function GatewayTitleSimple() {
             muted
             loop
             playsInline
-            preload="metadata"
+            // preload="metadata"
           />
         </div>
       </div>

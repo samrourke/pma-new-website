@@ -64,7 +64,7 @@ const What = forwardRef(function What(_, ref) {
       const targetScroll = st.start + (st.end - st.start) * targetProgress;
 
       gsap.to(window, {
-        duration: 3,
+        duration: 2,
         ease: "power1.inOut",
         scrollTo: targetScroll,
       });
