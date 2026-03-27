@@ -83,52 +83,106 @@ const What = forwardRef(function What(_, ref) {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    const ctx = gsap.context(() => {
-      if (reduceMotion) return;
+    if (reduceMotion) return;
 
-      gsap.set(panels[0], { yPercent: 70 });
-      gsap.set(panels[1], { yPercent: 100 });
-      gsap.set(panels[2], { yPercent: 200 });
+    let ctx;
+    let cancelled = false;
 
-      gsap.set([header, description], { opacity: 0, y: 50 });
+    const waitForMedia = async () => {
+      const media = Array.from(section.querySelectorAll("video, img"));
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: `+=${window.innerHeight * 4.25}`,
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+      await Promise.all(
+        media.map((el) => {
+          if (el.tagName === "IMG") {
+            if (el.complete) return Promise.resolve();
+            return new Promise((resolve) => {
+              el.addEventListener("load", resolve, { once: true });
+              el.addEventListener("error", resolve, { once: true });
+            });
+          }
 
-      triggerRef.current = tl.scrollTrigger;
+          if (el.tagName === "VIDEO") {
+            if (el.readyState >= 1) return Promise.resolve();
+            return new Promise((resolve) => {
+              el.addEventListener("loadedmetadata", resolve, { once: true });
+              el.addEventListener("error", resolve, { once: true });
+            });
+          }
 
-      gsap
-        .timeline({
+          return Promise.resolve();
+        }),
+      );
+    };
+
+    const init = async () => {
+      if (document.fonts?.ready) {
+        await document.fonts.ready;
+      }
+
+      await waitForMedia();
+
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+
+      if (cancelled) return;
+
+      ctx = gsap.context(() => {
+        gsap.set(panels[0], { yPercent: 70 });
+        gsap.set(panels[1], { yPercent: 100 });
+        gsap.set(panels[2], { yPercent: 200 });
+
+        gsap.set([header, description], { opacity: 0, y: 50 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => `+=${window.innerHeight * 4.25}`,
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            refreshPriority: 1,
+          },
+        });
+
+        triggerRef.current = tl.scrollTrigger;
+
+        gsap.to([header, description], {
+          opacity: 1,
+          y: 0,
+          ease: "none",
           scrollTrigger: {
             trigger: section,
             start: "top bottom-=200",
             end: "+=200",
+            scrub: true,
             invalidateOnRefresh: true,
           },
-        })
-        .to([header, description], { opacity: 1, y: 0, ease: "none" });
+        });
 
-      tl.to({}, { duration: 0.25 });
-      tl.to(panels[0], { yPercent: 0, ease: "none", duration: 1 });
-      tl.to({}, { duration: 0.25 });
-      tl.to(panels[1], { yPercent: 0, ease: "none", duration: 1 });
-      tl.to({}, { duration: 0.25 });
-      tl.to(panels[2], { yPercent: 0, ease: "none", duration: 1 });
-      tl.to({}, { duration: 0.35 });
-    }, section);
+        tl.to({}, { duration: 0.25 });
+        tl.to(panels[0], { yPercent: 0, ease: "none", duration: 1 });
+        tl.to({}, { duration: 0.25 });
+        tl.to(panels[1], { yPercent: 0, ease: "none", duration: 1 });
+        tl.to({}, { duration: 0.25 });
+        tl.to(panels[2], { yPercent: 0, ease: "none", duration: 1 });
+        tl.to({}, { duration: 0.35 });
+      }, section);
+
+      ScrollTrigger.refresh();
+    };
+
+    init();
+
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleLoad);
 
     return () => {
+      cancelled = true;
+      window.removeEventListener("load", handleLoad);
       triggerRef.current = null;
-      ctx.revert();
+      ctx?.revert();
     };
   }, []);
 

@@ -1,7 +1,7 @@
 .what {
   position: relative;
   background: var(--offWhite);
-  overflow: hidden;
+
  
 }
 
@@ -44,16 +44,9 @@
   position: relative;
 }
 
-.stack {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
 
-.panel {
-  position: absolute;
-  inset: 0;
-}
+
+
 
 .stack {
   position: relative;
