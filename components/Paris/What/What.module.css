@@ -1,0 +1,274 @@
+.what {
+  position: relative;
+  background: var(--offWhite);
+  overflow: hidden;
+ 
+}
+
+
+.headerWrap {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.description{
+    text-align: left;
+    opacity: 0;
+    transform: translateY(50px);
+    display: flex;
+    flex-direction: column;
+    gap:1rem
+
+}
+
+.copy{
+     margin: 0;
+  font-family: var(--font-satoshi), sans-serif;
+  text-align: left;
+  color: var(--paris);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  max-width: 28ch;
+  text-wrap: balance;
+}
+
+
+
+.stackWrap {
+  position: relative;
+}
+
+.stack {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+}
+
+.stack {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  z-index: 3;
+}
+.index{
+  position: absolute;
+  z-index: 2;
+  font-size: var(--fs-h2);
+  bottom:var(--padding-topbottom);
+  right:var(--padding-leftright);
+  opacity: 0.8;
+}
+.panel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  
+}
+
+.panel:nth-child(2){
+justify-content: flex-end;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.28) 38%,
+      rgba(0, 0, 0, 0.16) 100%
+    );
+  z-index: 1;
+
+}
+
+.content {
+  position: relative;
+  transform: translateY(-10vh);
+  z-index: 2;
+  padding: 0 var(--padding-leftright) clamp(28px, 4vw, 48px);
+  max-width: 42rem;
+
+}
+
+.number {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-family: var(--font-grotesk);
+  font-size: var(--fs-p);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.content h2 {
+  margin: 0 0 14px 0;
+  font-family: var(--font-gravity);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.92;
+  color: var(--offWhute);
+}
+
+.content p {
+  margin: 0;
+  max-width: 30ch;
+  font-family: var(--font-satoshi);
+  font-size: var(--fs-h5);
+  line-height: 1.45;
+  color: var(--offWhite)
+}
+
+/*watch button*/
+.watchButton {
+  margin-top: 1.5rem;
+  appearance: none;
+  border: 1px solid var(--offWhite);
+  border-radius: 8px;
+  
+  color: var(--ink);
+  color: var(--offWhite);
+  padding: 0.8rem 1.1rem;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.watchButton:hover {
+  background: var(--offWhite);
+  color: var(--ink);
+  border-color: var(--offWhite);
+  transform: translateY(-2px);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+}
+
+.modalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.modalInner {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  max-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalVideo {
+  width: 100%;
+  height: auto;
+
+  display: block;
+  background: #000;
+  /* border-radius: 18px; */
+  overflow: hidden;
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--padding-topbottom);
+  right: var(--padding-leftright);
+  z-index: 3;
+  appearance: none;
+   border: 1px solid var(--offWhite);
+  border-radius: 999;
+  color: white;
+  padding: 0.8rem 1rem;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+ 
+}
+
+.closeButton:hover {
+  background: white;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .modalInner {
+    width: 94vw;
+  }
+
+  .closeButton {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .watchButton {
+    margin-top: 1rem;
+    padding: 0.7rem 0.95rem;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 768px) {
+  .content {
+    padding-bottom: 24px;
+    max-width: none;
+  }
+
+  .content h2 {
+    font-size: clamp(2.8rem, 13vw, 5rem);
+  }
+
+  .content p {
+    max-width: 24ch;
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    position: relative;
+  }
+
+  .stack {
+    height: auto;
+  }
+
+  .what {
+    background: #000;
+  }
+}

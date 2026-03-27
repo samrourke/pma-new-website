@@ -3,6 +3,11 @@ import Header from "../Header/Header";
 
 const contactRoutes = [
   {
+    label: "Paris",
+    email: "paris-email@pmafilmtv.com",
+    description: "For all enquiries for our Paris office.",
+  },
+  {
     label: "General",
     email: "info@pmafilmtv.com",
     description: "General enquiries and new business",
@@ -22,23 +27,18 @@ const contactRoutes = [
     email: "post@pmafilmtv.com",
     description: "Post production and delivery enquiries",
   },
-  {
-    label: "Paris",
-    email: "paris-email@pmafilmtv.com",
-    description: "For all enquiries for our Paris office.",
-  },
 ];
 
 export default function Contact() {
   return (
     <section
-      id="london-contact"
+      id="paris-contact"
       className={styles.contact}
       data-nav-theme="dark"
     >
       <Header
         title="Get In Touch"
-        textColor="var(--london)"
+        textColor="var(--paris)"
         align="flex-start"
         number="04"
         paddingT={0}

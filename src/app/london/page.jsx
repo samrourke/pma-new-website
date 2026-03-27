@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { transitionStore } from "../../../components/PageTransition/transitionstore";
 import Partners from "../../../components/Partners/Partners";
-import Footer from "../../../components/Footer/Footer";
+import Footer from "../../../components/London/Footer/Footer";
 
 import AboutUsStory from "../../../components/London/AboutMinimal/AboutUsStory";
 
@@ -21,7 +21,7 @@ export default function London() {
   const heroMediaSlotRef = useRef(null);
   const heroContentRef = useRef(null);
   const whatRef = useRef(null);
-  const aboutSectionRef = useRef(null);
+
   const heroSectionRef = useRef(null);
 
   useLayoutEffect(() => {

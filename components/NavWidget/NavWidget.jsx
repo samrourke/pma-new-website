@@ -13,6 +13,7 @@ export default function NavWidget() {
   const panelRef = useRef(null);
   const tlRef = useRef(null);
   const pathname = usePathname();
+  const [contactLink, setContactLink] = useState("#london-contact");
 
   const [theme, setTheme] = useState("light");
 
@@ -26,8 +27,9 @@ export default function NavWidget() {
   const links = [
     { label: "london", href: "/london" },
     { label: "paris", href: "/paris" },
-    { label: "contact", href: "#contact" },
+    { label: "contact", href: contactLink },
   ];
+
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
@@ -45,6 +47,12 @@ export default function NavWidget() {
         opacity: 1,
         display: "block",
       });
+    }
+
+    if (pathname === "/londin") {
+      setContactLink("#london-contact");
+    } else if (pathname === "/paris") {
+      setContactLink("#paris-contact");
     }
   }, [pathname]);
 

@@ -12,7 +12,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 import styles from "./What.module.css";
-import Header from "../../Header/Header";
+import Header from "../Header/Header";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 

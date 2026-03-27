@@ -1,14 +1,6 @@
 import NavWidget from "../../components/NavWidget/NavWidget";
 import Head from "./head";
-import {
-  clashGrotesk,
-  satoshi,
-  mango,
-  absans,
-  galgo,
-  gravity,
-  ginto,
-} from "./fonts";
+import { satoshi, gravity } from "./fonts";
 import PageTransition from "../../components/PageTransition/PageTransition";
 import SmoothScroll from "../../components/SmoothScroll/SmoothScroll";
 import "./globals.css";
@@ -37,10 +29,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${clashGrotesk.variable} ${ginto.variable} ${gravity.variable}  ${satoshi.variable} ${galgo.variable} ${mango.variable} ${absans.variable}`}
-    >
+    <html lang="en" className={` ${gravity.variable}  ${satoshi.variable}`}>
       <Head />
       <body>
         {" "}
