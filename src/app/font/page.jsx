@@ -3,10 +3,6 @@ import styles from "./page.module.css";
 export default function Font() {
   return (
     <main className={styles.main}>
-      {/* <h1 className={styles.title}>FONT MANGO </h1>
-      <h1 className={styles.title}>HEADLINES</h1>
-      
-      <h1 className={styles.title}>TITLES</h1> */}
       <p className={styles.bodyText}>
         PMA is a family. That is what you get when you work with us, a small
         trusted team of creatives that are incredibly passionate about what they
