@@ -86,6 +86,7 @@ export default function AboutUsStory() {
         });
 
         const ticker = () => {
+          speed = baseSpeed + scrollBoost;
           xPercent += speed * direction;
 
           if (xPercent <= -50) xPercent += 50;
