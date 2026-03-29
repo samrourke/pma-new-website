@@ -27,7 +27,6 @@
   border-radius: 8px;
   background: transparent;
   
-
   cursor: pointer;
   pointer-events: auto;
 
@@ -36,6 +35,8 @@
     color 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease;
+  
+   
 }
 
 .toggle:hover {

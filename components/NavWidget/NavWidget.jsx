@@ -49,7 +49,7 @@ export default function NavWidget() {
       });
     }
 
-    if (pathname === "/londin") {
+    if (pathname === "/london") {
       setContactLink("#london-contact");
     } else if (pathname === "/paris") {
       setContactLink("#paris-contact");
