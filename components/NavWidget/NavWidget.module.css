@@ -5,7 +5,6 @@
   z-index: 99;
   pointer-events: none;
   display: none;
-
 }
 
 /* TOGGLE */
@@ -15,6 +14,7 @@
   top: var(--padding-leftright);
   left: var(--padding-leftright);
   z-index: 120;
+ 
 
   display: inline-flex;
   align-items: center;
@@ -23,20 +23,33 @@
   padding: 10px 14px;
   min-height: 42px;
 
-  border: 1px solid var(--offWhite);
+  border: 1px solid;
   border-radius: 8px;
   background: transparent;
+  /* color: var(--offWhite); */
   
   cursor: pointer;
   pointer-events: auto;
-
+  border: 1px solid ;
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease;
-  
-   
+}
+
+.toggle.light{
+  border: 1px solid var(--offWhite);
+  color: var(--offWhite);
+}
+
+.toggle.dark{
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.toggle.open{
+  border: none;
 }
 
 .toggle:hover {
@@ -65,12 +78,20 @@
   height: 1.5px;
   background: currentColor;
   transform-origin: center center;
-  color: var(--offWhite);
+
   transition:
     transform 0.25s ease,
     top 0.25s ease,
     opacity 0.2s ease,
     width 0.25s ease;
+}
+
+.icon span.light{
+  color: var(--offWhite);
+}
+
+.icon span.dark{
+  color: var(--ink);
 }
 
 .icon span:first-child {
@@ -87,14 +108,16 @@
   top: 5px;
   width: 18px;
   transform: rotate(45deg);
-  color:var(--ink);
+  /* color:var(--london); */
+  color:var(--open-color);
 }
 
 .open .icon span:last-child {
   top: 5px;
   width: 18px;
   transform: rotate(-45deg);
-   color:var(--ink);
+  color:var(--open-color);
+   /* color:var(--london); */
 }
 
 /* PANEL */

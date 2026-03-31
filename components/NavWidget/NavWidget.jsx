@@ -17,6 +17,13 @@ export default function NavWidget() {
 
   const [theme, setTheme] = useState("light");
 
+  const toggleOpenColor =
+    pathname === "/london"
+      ? "var(--london)"
+      : pathname === "/paris"
+        ? "var(--paris)"
+        : "var(--offWhite)";
+
   const accentColor = pathname === "/paris" ? "var(--paris)" : "var(--london)";
 
   const hoverColor =
@@ -76,6 +83,8 @@ export default function NavWidget() {
     return () => window.removeEventListener("pointerdown", onDown);
   }, [open]);
 
+  // Nav theme change on section scroll
+
   useEffect(() => {
     const sections = document.querySelectorAll("[data-nav-theme]");
     if (!sections.length) return;
@@ -101,7 +110,7 @@ export default function NavWidget() {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   useLayoutEffect(() => {
     const wrap = wrapRef.current;
@@ -202,19 +211,19 @@ export default function NavWidget() {
   return (
     <div ref={wrapRef} className={styles.wrap}>
       <button
-        className={`${styles.toggle} ${open ? styles.open : ""}`}
+        className={`${styles[theme]} ${styles.toggle} ${open ? styles.open : ""}`}
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         type="button"
       >
-        <span className={styles.icon} aria-hidden="true">
-          <span />
-          <span />
+        <span className={`${styles[theme]} ${styles.icon}`} aria-hidden="true">
+          <span style={{ "--open-color": toggleOpenColor }} />
+          <span style={{ "--open-color": toggleOpenColor }} />
         </span>
         {/* <span className={styles.toggleLabel}>{open ? "Close" : "Menu"}</span> */}
       </button>
-
+      §
       <div
         ref={panelRef}
         className={`${styles.panel} ${open ? styles.isOpen : ""}`}

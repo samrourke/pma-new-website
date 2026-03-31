@@ -180,7 +180,7 @@ export default function AboutUsStory() {
     <section
       id="about"
       className={styles.about}
-      data-nav-theme="dark"
+      data-nav-theme="light"
       ref={sectionRef}
     >
       <div className={styles.headerWrap}>
