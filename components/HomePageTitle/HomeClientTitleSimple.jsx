@@ -304,11 +304,25 @@ export default function GatewayTitleSimple() {
         0.1,
       )
       .call(() => {
-        window.dispatchEvent(
-          new CustomEvent("pma-transition-start", {
-            detail: { city },
-          }),
-        );
+        const rect = selectedVideo.getBoundingClientRect();
+
+        gsap.set(selectedVideo, {
+          position: "fixed",
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+          zIndex: 9999,
+        });
+
+        gsap.to(selectedVideo, {
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          duration: 0.45,
+          ease: "power3.inOut",
+        });
       })
       .to({}, { duration: 0.45 })
       .call(() => {
@@ -396,23 +410,6 @@ export default function GatewayTitleSimple() {
             </a>
           </nav>
         </div>
-
-        {/* <div className={styles.socials}>
-          <a
-            href="https://vimeo.com/pmafilmtv"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Vimeo
-          </a>
-          <a
-            href="https://www.instagram.com/pmafilms/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Instagram
-          </a>
-        </div> */}
       </div>
     </main>
   );
