@@ -9,6 +9,7 @@ import Link from "next/link";
 import { transitionStore } from "../../../components/PageTransition/transitionstore";
 import Partners from "../../../components/Partners/Partners";
 import Footer from "../../../components/Paris/Footer/Footer";
+import NavWidget from "../../../components/Paris/NavWidget/NavWidget";
 
 import AboutUsStory from "../../../components/Paris/AboutMinimal/AboutUsStory";
 
@@ -186,74 +187,76 @@ export default function London() {
   }, []);
 
   return (
-    <div className={styles.container} ref={heroSectionRef}>
-      <main className={styles.london}>
-        <section className={styles.hero} data-nav-theme="light">
-          <div ref={heroMediaSlotRef} className={styles.heroMediaSlot} />
+    <>
+      <NavWidget />
+      <div className={styles.container} ref={heroSectionRef}>
+        <main className={styles.london}>
+          <section className={styles.hero} data-nav-theme="light">
+            <div ref={heroMediaSlotRef} className={styles.heroMediaSlot} />
 
-          <div className={styles.heroOverlay} />
+            <div className={styles.heroOverlay} />
 
-          <div ref={heroContentRef} className={styles.heroContent}>
-            <div className={styles.heroTop}>
-              <Link href="/">
-                <Image
-                  className={styles.logo}
-                  height={177}
-                  width={446}
-                  src="/images/pma-white.png"
-                  alt="PMA"
-                  priority
-                />
-              </Link>
-              <span className={styles.officeTag}>Paris</span>
-            </div>
-
-            <div className={styles.heroBottom}>
-              <h1 className={styles.heroText}>Growing</h1>
-              <h1 className={styles.heroText}>Audiences</h1>
-
-              <div className={styles.subtextNav}>
-                <button
-                  type="button"
-                  className={styles.subtextLink}
-                  onClick={() => handleHeroNav("creative")}
-                >
-                  Creative
-                </button>
-                <button
-                  type="button"
-                  className={styles.subtextLink}
-                  onClick={() => handleHeroNav("publicity")}
-                >
-                  Publicity
-                </button>
-                <button
-                  type="button"
-                  className={styles.subtextLink}
-                  onClick={() => handleHeroNav("post")}
-                >
-                  Post
-                </button>
+            <div ref={heroContentRef} className={styles.heroContent}>
+              <div className={styles.heroTop}>
+                <Link href="/">
+                  <Image
+                    className={styles.logo}
+                    height={177}
+                    width={446}
+                    src="/images/pma-white.png"
+                    alt="PMA"
+                    priority
+                  />
+                </Link>
+                <span className={styles.officeTag}>Paris</span>
               </div>
 
-              <div className={styles.scrollCueContainer}>
-                <button
-                  className={styles.scrollCue}
-                  onClick={() =>
-                    document
-                      .querySelector("#creative")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  aria-label="Scroll down"
-                  type="button"
-                >
-                  <span className={styles.scrollArrow}>↓</span>
-                </button>
-                <p>Scroll Down</p>
-              </div>
-            </div>
+              <div className={styles.heroBottom}>
+                <h1 className={styles.heroText}>Growing</h1>
+                <h1 className={styles.heroText}>Audiences</h1>
 
-            {/* <div className={styles.heroBottom}>
+                <div className={styles.subtextNav}>
+                  <button
+                    type="button"
+                    className={styles.subtextLink}
+                    onClick={() => handleHeroNav("creative")}
+                  >
+                    Creative
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.subtextLink}
+                    onClick={() => handleHeroNav("publicity")}
+                  >
+                    Publicity
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.subtextLink}
+                    onClick={() => handleHeroNav("post")}
+                  >
+                    Post
+                  </button>
+                </div>
+
+                <div className={styles.scrollCueContainer}>
+                  <button
+                    className={styles.scrollCue}
+                    onClick={() =>
+                      document
+                        .querySelector("#creative")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    aria-label="Scroll down"
+                    type="button"
+                  >
+                    <span className={styles.scrollArrow}>↓</span>
+                  </button>
+                  <p>Scroll Down</p>
+                </div>
+              </div>
+
+              {/* <div className={styles.heroBottom}>
               <div className={styles.heroTextWrap}>
                 <h1 className={styles.heroText}>
                   <span className={styles.hl}>Growing Audiences</span>
@@ -273,15 +276,16 @@ export default function London() {
               </div>
             </div>
             */}
-          </div>
-        </section>
-        <AboutUsStory />
-        <What ref={whatRef} />
+            </div>
+          </section>
+          <AboutUsStory />
+          <What ref={whatRef} />
 
-        <Partners />
-        <Contact />
-        <Footer />
-      </main>
-    </div>
+          <Partners />
+          <Contact />
+          <Footer />
+        </main>
+      </div>
+    </>
   );
 }

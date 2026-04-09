@@ -57,9 +57,8 @@ export default function Partners() {
     >
       <Header
         textColor="var(--offWhite)"
-        number="03"
         align="center"
-        title="who we work with"
+        title="Our Partners"
         textAlign="center"
       />
 

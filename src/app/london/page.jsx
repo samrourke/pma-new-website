@@ -6,6 +6,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
+import NavWidget from "../../../components/London/NavWidget/NavWidget";
 import { transitionStore } from "../../../components/PageTransition/transitionstore";
 import Partners from "../../../components/Partners/Partners";
 import Footer from "../../../components/London/Footer/Footer";
@@ -187,81 +188,85 @@ export default function London() {
   }, []);
 
   return (
-    <div className={styles.container} ref={heroSectionRef}>
-      <main className={styles.london}>
-        <section className={styles.hero} data-nav-theme="light">
-          <div ref={heroMediaSlotRef} className={styles.heroMediaSlot} />
+    <>
+      {" "}
+      <NavWidget handleNav={handleHeroNav} />
+      <div className={styles.container} ref={heroSectionRef}>
+        <main className={styles.london}>
+          <section className={styles.hero} data-nav-theme="light">
+            <div ref={heroMediaSlotRef} className={styles.heroMediaSlot} />
 
-          <div className={styles.heroOverlay} />
+            <div className={styles.heroOverlay} />
 
-          <div ref={heroContentRef} className={styles.heroContent}>
-            <div className={styles.heroTop}>
-              <Link href="/">
-                <Image
-                  className={styles.logo}
-                  height={177}
-                  width={446}
-                  src="/images/pma-white.png"
-                  alt="PMA"
-                  priority
-                />
-              </Link>
-              <span className={styles.officeTag}>London</span>
-            </div>
-
-            <div className={styles.heroBottom}>
-              <h1 className={styles.heroText}>Growing</h1>
-              <h1 className={styles.heroText}>Audiences</h1>
-
-              <div className={styles.subtextNav}>
-                <button
-                  type="button"
-                  className={styles.subtextLink}
-                  onClick={() => handleHeroNav("creative")}
-                >
-                  Creative
-                </button>
-                <button
-                  type="button"
-                  className={styles.subtextLink}
-                  onClick={() => handleHeroNav("publicity")}
-                >
-                  Junkets
-                </button>
-                <button
-                  type="button"
-                  className={styles.subtextLink}
-                  onClick={() => handleHeroNav("post")}
-                >
-                  Post
-                </button>
+            <div ref={heroContentRef} className={styles.heroContent}>
+              <div className={styles.heroTop}>
+                <Link href="/">
+                  <Image
+                    className={styles.logo}
+                    height={177}
+                    width={446}
+                    src="/images/pma-white.png"
+                    alt="PMA"
+                    priority
+                  />
+                </Link>
+                <span className={styles.officeTag}>London</span>
               </div>
 
-              <div className={styles.scrollCueContainer}>
-                <button
-                  className={styles.scrollCue}
-                  onClick={() =>
-                    document
-                      .querySelector("#creative")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  aria-label="Scroll down"
-                  type="button"
-                >
-                  <span className={styles.scrollArrow}>↓</span>
-                </button>
-                <p>Scroll Down</p>
+              <div className={styles.heroBottom}>
+                <h1 className={styles.heroText}>Growing</h1>
+                <h1 className={styles.heroText}>Audiences</h1>
+
+                <div className={styles.subtextNav}>
+                  <button
+                    type="button"
+                    className={styles.subtextLink}
+                    onClick={() => handleHeroNav("creative")}
+                  >
+                    Creative
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.subtextLink}
+                    onClick={() => handleHeroNav("publicity")}
+                  >
+                    Junkets
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.subtextLink}
+                    onClick={() => handleHeroNav("post")}
+                  >
+                    Post
+                  </button>
+                </div>
+
+                <div className={styles.scrollCueContainer}>
+                  <button
+                    className={styles.scrollCue}
+                    onClick={() =>
+                      document
+                        .querySelector("#creative")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    aria-label="Scroll down"
+                    type="button"
+                  >
+                    <span className={styles.scrollArrow}>↓</span>
+                  </button>
+                  <p>Scroll Down</p>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-        <AboutUs />
-        <What ref={whatRef} />
+          </section>
+          <AboutUs />
+          <What ref={whatRef} />
 
-        <Partners />
-        <Contact />
-        <Footer />
-      </main>
-    </div>
+          <Partners />
+          <Contact />
+          <Footer />
+        </main>
+      </div>
+    </>
   );
 }

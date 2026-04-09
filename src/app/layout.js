@@ -34,10 +34,7 @@ export default function RootLayout({ children }) {
       <body>
         {" "}
         <SmoothScroll>
-          <PageTransition>
-            <NavWidget />
-            {children}
-          </PageTransition>
+          <PageTransition>{children}</PageTransition>
         </SmoothScroll>
       </body>
     </html>

@@ -386,6 +386,10 @@ export default function GatewayTitleSimple() {
             playsInline
             preload="auto"
           >
+            <source
+              src="/video/logo/output-safari.mov"
+              type='video/mp4; codecs="hvc1"'
+            />
             <source src="/video/logo/output-all.webm" type="video/webm" />
           </video>
           <nav ref={navRef} className={styles.cityNav}>

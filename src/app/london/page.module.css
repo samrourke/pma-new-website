@@ -2,7 +2,7 @@
   position: relative;
   z-index: 1;
   /* min-width: 1024px; */
-  margin: 0 auto;
+
  
 }
 
@@ -62,7 +62,7 @@
 }
 
 .logo {
-  width: clamp(150px, 11vw, 220px);
+  width: clamp(120px, 10vw, 220px);
   height: auto;
   filter: brightness(0) saturate(100%) invert(93%) sepia(25%) saturate(517%)
     hue-rotate(312deg) brightness(104%) contrast(98%);
@@ -71,11 +71,11 @@
 }
 
 .officeTag {
-  letter-spacing: 0.12em;
+  letter-spacing: 0.13em;
   font-family: var(--font-gravity);
   text-transform: uppercase;
   color: transparent;
-  font-size: var(--fs-h6);
+  font-size: var(--p);
   opacity: 0.82;
   -webkit-text-stroke: 1px var(--offWhite);
 }
