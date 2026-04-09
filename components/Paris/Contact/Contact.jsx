@@ -40,23 +40,15 @@ export default function Contact() {
         title="Get In Touch"
         textColor="var(--paris)"
         align="flex-start"
-        number="04"
         paddingT={0}
         textAlign="left"
       />
 
       <div className={styles.inner}>
         <div className={styles.intro}>
-          {/* <p className={styles.kicker}>London</p> */}
-
           <p className={styles.copy}>
-            PMA works across creative, publicity and post production for film
-            and television campaigns worldwide.
-          </p>
-
-          <p className={styles.copy}>
-            We are always excited to work with new people so if you're launching
-            a campaign, let's talk.
+            We are always excited to work with existing clients and new people
+            so if you're launching a campaign, let's talk.
           </p>
         </div>
 

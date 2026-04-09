@@ -20,9 +20,6 @@ export default function Footer() {
             <span>Growing Audiences.</span>
           </h1>
         </div>
-        <p className={styles.meta}>
-          © PMA Film & TV — Press, Junkets & Storytelling
-        </p>
       </div>
 
       <div className={styles.info}>
@@ -60,15 +57,29 @@ export default function Footer() {
           >
             <img className={styles.socialImg} src="/images/socials/insta.png" />
           </a>
+          <a
+            className={styles.socialLink}
+            href="https://uk.linkedin.com/company/pma-film-television"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              className={styles.socialImg}
+              src="/images/socials/linkedIn.png"
+            />
+          </a>
         </div>
       </div>
-      <div className={styles.legal}>
-        <Link href="/privacy-policy" className={styles.legalLink}>
-          Privacy Policy
-        </Link>
-        <Link href="/cookie-policy" className={styles.legalLink}>
-          Cookie Policy
-        </Link>
+      <div className={styles.bottomMeta}>
+        <div className={styles.legal}>
+          <Link href="/privacy-policy" className={styles.legalLink}>
+            Privacy Policy
+          </Link>
+          <Link href="/cookie-policy" className={styles.legalLink}>
+            Cookie Policy
+          </Link>
+        </div>
+        <p className={styles.meta}>© PMA Film & TV</p>
       </div>
     </footer>
   );

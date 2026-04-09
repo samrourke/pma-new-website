@@ -2,14 +2,15 @@
   position: relative;
   min-height: 100dvh;
   overflow: hidden;
-  background: var(--london);
+  background: var(--ink);
   color: var(--offWhite);
 }
 
 .bgBase {
   position: absolute;
   inset: 0;
-  background: transparent
+  background: var(--london);
+  transform:scaleY(0);
 }
 
 .cityBg {

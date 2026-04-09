@@ -8,12 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import NavWidget from "../../../components/London/NavWidget/NavWidget";
 import { transitionStore } from "../../../components/PageTransition/transitionstore";
-import Partners from "../../../components/Partners/Partners";
+import Partners from "../../../components/London/Partners/Partners";
 import Footer from "../../../components/London/Footer/Footer";
-
-import AboutUsStory from "../../../components/London/AboutMinimal/AboutUsStory";
 import AboutUs from "../../../components/London/AboutImageGrid/About";
-
 import What from "../../../components/London/What/What";
 import Contact from "../../../components/London/Contact/Contact";
 

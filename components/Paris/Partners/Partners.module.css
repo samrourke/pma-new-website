@@ -1,0 +1,92 @@
+.partners{
+    
+    background-color: black;
+    padding: var(--padding-topbottom) var(--padding-leftright);
+    margin-top: -2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
+.description{
+    width:100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.copy{
+    font-family: var(--font-satoshi);
+    font-size: var(--fs-h5);
+    max-width: 40ch;
+}
+
+.logoGrid {
+  max-width: 1300px;
+  display: flex;
+  gap:2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  
+  
+}
+
+.logo {
+  width: 120px;
+  height:auto;
+  opacity: .95;
+  transition: opacity .3s ease;
+
+  filter: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(604%) hue-rotate(334deg) brightness(105%) contrast(98%);
+  /* filter:invert(1); */
+  
+}
+
+.logo:hover {
+  opacity: 1;
+}
+
+@media(max-width:1000px){
+
+    .copy{
+        max-width: 70%;
+    }
+    .logo{
+        max-width: 90px;
+    }
+}
+
+@media(max-width:625px){
+    .logo{
+        max-width: 90px;
+    }
+}
+
+
+/* .title{
+    color:var(--off-white)
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    background-color: black;
+    color:var(--off-white)
+}
+
+.logo{
+    filter: invert(1);
+    height:50px;
+    width:auto;
+} */

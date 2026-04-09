@@ -6,13 +6,11 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import { transitionStore } from "../../../components/PageTransition/transitionstore";
-import Partners from "../../../components/Partners/Partners";
-import Footer from "../../../components/Paris/Footer/Footer";
 import NavWidget from "../../../components/Paris/NavWidget/NavWidget";
-
-import AboutUsStory from "../../../components/Paris/AboutMinimal/AboutUsStory";
-
+import { transitionStore } from "../../../components/PageTransition/transitionstore";
+import Partners from "../../../components/Paris/Partners/Partners";
+import Footer from "../../../components/Paris/Footer/Footer";
+import AboutUs from "../../../components/Paris/AboutImageGrid/About";
 import What from "../../../components/Paris/What/What";
 import Contact from "../../../components/Paris/Contact/Contact";
 
@@ -188,9 +186,10 @@ export default function London() {
 
   return (
     <>
-      <NavWidget />
+      {" "}
+      <NavWidget handleNav={handleHeroNav} />
       <div className={styles.container} ref={heroSectionRef}>
-        <main className={styles.london}>
+        <main className={styles.paris}>
           <section className={styles.hero} data-nav-theme="light">
             <div ref={heroMediaSlotRef} className={styles.heroMediaSlot} />
 
@@ -208,7 +207,7 @@ export default function London() {
                     priority
                   />
                 </Link>
-                <span className={styles.officeTag}>Paris</span>
+                <span className={styles.officeTag}>paris</span>
               </div>
 
               <div className={styles.heroBottom}>
@@ -228,7 +227,7 @@ export default function London() {
                     className={styles.subtextLink}
                     onClick={() => handleHeroNav("publicity")}
                   >
-                    Publicity
+                    Junkets
                   </button>
                   <button
                     type="button"
@@ -255,30 +254,9 @@ export default function London() {
                   <p>Scroll Down</p>
                 </div>
               </div>
-
-              {/* <div className={styles.heroBottom}>
-              <div className={styles.heroTextWrap}>
-                <h1 className={styles.heroText}>
-                  <span className={styles.hl}>Growing Audiences</span>
-                </h1>
-              </div>
-
-              <div className={styles.subtextNav}>
-                <a href="#creative" className={styles.subtextLink}>
-                  Creative Production
-                </a>
-                <a href="#publicity" className={styles.subtextLink}>
-                  Publicity Production
-                </a>
-                <a href="#post" className={styles.subtextLink}>
-                  Post Production
-                </a>
-              </div>
-            </div>
-            */}
             </div>
           </section>
-          <AboutUsStory />
+          <AboutUs />
           <What ref={whatRef} />
 
           <Partners />

@@ -20,26 +20,26 @@ const What = forwardRef(function What(_, ref) {
   const sectionRef = useRef(null);
   const panelsRef = useRef([]);
   const headerRef = useRef(null);
-  const descriptionRef = useRef(null);
+
   const modalVideoRef = useRef(null);
   const triggerRef = useRef(null);
   const [activeVideo, setActiveVideo] = useState(null);
 
   const services = [
     {
-      title: "CREATIVE PRODUCTION",
+      title: "CREATIVE",
       text: "Behind-the-scenes films, branded content and campaign storytelling built for modern audiences.",
       video: "/video/trailer.mp4",
       id: "creative",
     },
     {
-      title: "PUBLICITY PRODUCTION",
+      title: "JUNKETS",
       text: "International press junkets, screenings and Q&As delivered with precision and experience.",
       video: "/video/press.mp4",
       id: "publicity",
     },
     {
-      title: "POST PRODUCTION",
+      title: "POST",
       text: "Editing, finishing and delivery handled in-house to keep every campaign sharp, cohesive and on time.",
       video: "/video/trailer.mp4",
       id: "post",
@@ -75,7 +75,6 @@ const What = forwardRef(function What(_, ref) {
     const section = sectionRef.current;
     const panels = panelsRef.current.filter(Boolean);
     const header = headerRef.current;
-    const description = descriptionRef.current;
 
     if (!section || !panels.length) return;
 
@@ -127,11 +126,11 @@ const What = forwardRef(function What(_, ref) {
       if (cancelled) return;
 
       ctx = gsap.context(() => {
-        gsap.set(panels[0], { yPercent: 70 });
+        gsap.set(panels[0], { yPercent: 40 });
         gsap.set(panels[1], { yPercent: 100 });
         gsap.set(panels[2], { yPercent: 200 });
 
-        gsap.set([header, description], { opacity: 0, y: 50 });
+        gsap.set([header], { opacity: 0, y: 50 });
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -148,7 +147,7 @@ const What = forwardRef(function What(_, ref) {
 
         triggerRef.current = tl.scrollTrigger;
 
-        gsap.to([header, description], {
+        gsap.to(header, {
           opacity: 1,
           y: 0,
           ease: "none",
@@ -211,32 +210,30 @@ const What = forwardRef(function What(_, ref) {
 
   return (
     <>
-      <section
-        id="what"
-        className={styles.what}
-        ref={sectionRef}
-        data-nav-theme="dark"
-      >
-        <div className={styles.headerWrap} ref={headerRef}>
+      <section id="what" className={styles.what} ref={sectionRef}>
+        <div
+          className={styles.headerWrap}
+          ref={headerRef}
+          data-nav-theme="dark"
+        >
           <Header
-            number="02"
-            title="What We Do"
+            title="Our Work"
             textColor="var(--paris)"
             align="flex-start"
             paddingT="var(--padding-topbottom)"
             textAlign="left"
           >
-            <div className={styles.description} ref={descriptionRef}>
+            {/* <div className={styles.description} ref={descriptionRef}>
               <p className={styles.copy}>We build campaigns end to end.</p>
               <p className={styles.copy}>
                 From BTS and creative content through post production to press
                 and promotion.
               </p>
-            </div>
+            </div> */}
           </Header>
         </div>
 
-        <div className={styles.stack}>
+        <div className={styles.stack} data-nav-theme="light">
           {services.map((service, i) => (
             <article
               data-nav-theme="light"
@@ -254,7 +251,7 @@ const What = forwardRef(function What(_, ref) {
               />
               <div className={styles.overlay} />
               <div className={styles.content}>
-                <h2>{service.title}</h2>
+                <h1>{service.title}</h1>
                 {/* <p>{service.text}</p> */}
 
                 <button

@@ -23,6 +23,7 @@ export default function GatewayTitleSimple() {
   const logoRef = useRef(null);
   const navRef = useRef(null);
 
+  const bgBaseRef = useRef(null);
   const londonBgRef = useRef(null);
   const parisBgRef = useRef(null);
 
@@ -48,6 +49,12 @@ export default function GatewayTitleSimple() {
         scaleX: 0.96,
       });
 
+      gsap.set(bgBaseRef.current, {
+        scaleY: 0,
+        transformOrigin: "bottom center",
+        opacity: 1,
+      });
+
       gsap.set(logoWrapRef.current, {
         autoAlpha: 0,
         y: 20,
@@ -64,6 +71,11 @@ export default function GatewayTitleSimple() {
       });
 
       introTl.current
+        .to(bgBaseRef.current, {
+          scaleY: 1,
+          ease: "circ.inOut",
+          duration: 0.5,
+        })
         .to(logoWrapRef.current, {
           autoAlpha: 1,
           y: 0,
@@ -336,7 +348,7 @@ export default function GatewayTitleSimple() {
       className={styles.gateway}
       onMouseLeave={() => setActiveCity(null)}
     >
-      <div className={styles.bgBase} />
+      <div className={styles.bgBase} ref={bgBaseRef} />
       <div
         ref={londonBgRef}
         className={`${styles.cityBg} ${styles.londonBg}`}
