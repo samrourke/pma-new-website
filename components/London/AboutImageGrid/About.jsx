@@ -3,7 +3,7 @@
 import styles from "./About.module.css";
 import Image from "next/image";
 import Header from "../Header/Header";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -62,16 +62,19 @@ const column1 = [
     src: "/images/About/team-bridgetJones.jpeg",
     alt: "Behind the scenes 1",
     orientation: "landscape",
+    mobile: true,
   },
   {
     src: "/images/About/team-cupcakes.jpeg",
     alt: "Behind the scenes 2",
     orientation: "portrait",
+    mobile: false,
   },
   {
     src: "/images/About/team-hepburn.jpeg",
     alt: "Behind the scenes 3",
     orientation: "portrait",
+    mobile: false,
   },
 ];
 const column2 = [
@@ -79,11 +82,13 @@ const column2 = [
     src: "/images/About/team-junkets.jpeg",
     alt: "Behind the scenes 4",
     orientation: "landscape",
+    mobile: true,
   },
   {
     src: "/images/About/team-laptop.jpeg",
     alt: "Behind the scenes 5",
     orientation: "portrait",
+    mobile: false,
   },
 ];
 const column3 = [
@@ -91,25 +96,40 @@ const column3 = [
     src: "/images/About/team-office-group.jpeg",
     alt: "Behind the scenes 6",
     orientation: "landscape",
+    mobile: true,
   },
   {
     src: "/images/About/team-starwars.jpeg",
     alt: "Behind the scenes 7",
     orientation: "landscape",
+    mobile: false,
   },
   {
     src: "/images/About/team-trophy.jpeg",
     alt: "Behind the scenes 8",
     orientation: "landscape",
+    mobile: true,
   },
   {
     src: "/images/About/team-wicked-pair.jpeg",
     alt: "Behind the scenes 9",
     orientation: "landscape",
+    mobile: false,
   },
 ];
+
+const mobileImages = [column1[0], column2[0], column3[0], column3[2]];
+
 export default function AboutUs() {
   const masonryRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 900);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -188,56 +208,92 @@ export default function AboutUs() {
         {/* RIGHT IMAGE GRID */}
         <div className={styles.right}>
           <div className={styles.masonry} ref={masonryRef}>
-            <div className={styles.column}>
-              {column1.map((img, i) => (
-                <div
-                  key={i}
-                  className={`${styles.item} ${styles[img.orientation]}`}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={600}
-                    height={600}
-                    className={styles.image}
-                  />
+            {!isMobile ? (
+              <>
+                <div className={styles.column}>
+                  {column1.map((img, i) => (
+                    <div
+                      key={i}
+                      className={`${styles.item} ${styles[img.orientation]}`}
+                    >
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        width={600}
+                        height={600}
+                        className={styles.image}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div className={styles.column}>
-              {column2.map((img, i) => (
-                <div
-                  key={i}
-                  className={`${styles.item} ${styles[img.orientation]}`}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={600}
-                    height={600}
-                    className={styles.image}
-                  />
+                <div className={styles.column}>
+                  {column2.map((img, i) => (
+                    <div
+                      key={i}
+                      className={`${styles.item} ${styles[img.orientation]}`}
+                    >
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        width={600}
+                        height={600}
+                        className={styles.image}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div className={styles.column}>
-              {column3.map((img, i) => (
-                <div
-                  key={i}
-                  className={`${styles.item} ${styles[img.orientation]}`}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={600}
-                    height={600}
-                    className={styles.image}
-                  />
+                <div className={styles.column}>
+                  {column3.map((img, i) => (
+                    <div
+                      key={i}
+                      className={`${styles.item} ${styles[img.orientation]}`}
+                    >
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        width={600}
+                        height={600}
+                        className={styles.image}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            ) : (
+              <div className={styles.imageStrip}>
+                <figure className={`${styles.imageCard} ${styles.imageLeft}`}>
+                  <div className={styles.imageInner}>
+                    <img
+                      src="/images/About/team-junkets.jpeg"
+                      alt="PMA team working on set"
+                      className={styles.image}
+                    />
+                  </div>
+                </figure>
+
+                <figure className={`${styles.imageCard} ${styles.imageCenter}`}>
+                  <div className={styles.imageInner}>
+                    <img
+                      src="/images/About/team-office-group.jpeg"
+                      alt="PMA team in the office"
+                      className={styles.image}
+                    />
+                  </div>
+                </figure>
+
+                <figure className={`${styles.imageCard} ${styles.imageRight}`}>
+                  <div className={styles.imageInner}>
+                    <img
+                      src="/images/About/team-wicked-pair.jpeg"
+                      alt="PMA team at an event"
+                      className={styles.image}
+                    />
+                  </div>
+                </figure>
+              </div>
+            )}
           </div>
         </div>
       </div>
