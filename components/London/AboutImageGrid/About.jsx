@@ -122,6 +122,7 @@ const mobileImages = [column1[0], column2[0], column3[0], column3[2]];
 
 export default function AboutUs() {
   const masonryRef = useRef(null);
+
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -134,9 +135,10 @@ export default function AboutUs() {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const items = masonryRef.current.querySelectorAll(`.${styles.item}`);
-      const images = masonryRef.current.querySelectorAll(`.${styles.image}`);
 
       const columns = masonryRef.current.querySelectorAll(`.${styles.column}`);
+
+      console.log("mobile images " + mobileImages);
 
       gsap.to(columns[0], {
         y: -40,
@@ -149,6 +151,26 @@ export default function AboutUs() {
       });
 
       gsap.to(columns[2], {
+        y: 30,
+        scrollTrigger: {
+          trigger: masonryRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.to(mobileImages[0], {
+        y: 30,
+        scrollTrigger: {
+          trigger: masonryRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.to(mobileImages[2], {
         y: 30,
         scrollTrigger: {
           trigger: masonryRef.current,
@@ -173,7 +195,7 @@ export default function AboutUs() {
     }, masonryRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className={styles.about} data-nav-theme="light">
@@ -263,7 +285,7 @@ export default function AboutUs() {
               </>
             ) : (
               <div className={styles.imageStrip}>
-                <figure className={`${styles.imageCard} ${styles.imageLeft}`}>
+                {/* <figure className={`${styles.imageCard} ${styles.imageLeft}`}>
                   <div className={styles.imageInner}>
                     <img
                       src="/images/About/team-junkets.jpeg"
@@ -271,7 +293,7 @@ export default function AboutUs() {
                       className={styles.image}
                     />
                   </div>
-                </figure>
+                </figure> */}
 
                 <figure className={`${styles.imageCard} ${styles.imageCenter}`}>
                   <div className={styles.imageInner}>
@@ -283,7 +305,7 @@ export default function AboutUs() {
                   </div>
                 </figure>
 
-                <figure className={`${styles.imageCard} ${styles.imageRight}`}>
+                {/* <figure className={`${styles.imageCard} ${styles.imageRight}`}>
                   <div className={styles.imageInner}>
                     <img
                       src="/images/About/team-wicked-pair.jpeg"
@@ -291,7 +313,7 @@ export default function AboutUs() {
                       className={styles.image}
                     />
                   </div>
-                </figure>
+                </figure> */}
               </div>
             )}
           </div>

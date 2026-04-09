@@ -20,6 +20,17 @@ export default function Footer() {
             <span>Growing Audiences.</span>
           </h1>
         </div>
+        <div className={styles.bottomMeta}>
+          <div className={styles.legal}>
+            <Link href="/privacy-policy" className={styles.legalLink}>
+              Privacy Policy
+            </Link>
+            <Link href="/cookie-policy" className={styles.legalLink}>
+              Cookie Policy
+            </Link>
+          </div>
+          <p className={styles.meta}>© PMA Film & TV</p>
+        </div>
       </div>
 
       <div className={styles.info}>
@@ -69,17 +80,6 @@ export default function Footer() {
             />
           </a>
         </div>
-      </div>
-      <div className={styles.bottomMeta}>
-        <div className={styles.legal}>
-          <Link href="/privacy-policy" className={styles.legalLink}>
-            Privacy Policy
-          </Link>
-          <Link href="/cookie-policy" className={styles.legalLink}>
-            Cookie Policy
-          </Link>
-        </div>
-        <p className={styles.meta}>© PMA Film & TV</p>
       </div>
     </footer>
   );

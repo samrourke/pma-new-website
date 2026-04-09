@@ -109,10 +109,9 @@
 
 .imageStrip {
   display: grid;
-  grid-template-columns: 1fr 1.7fr 1fr;
-  gap: clamp(0.2rem, 1vw, 0.7rem);
+  grid-template-columns: 1fr;
   align-items: start;
-  margin-top: clamp(2rem, 5vw, 3rem);
+  margin-top: clamp(1rem, 1vw, 2rem);
 }
 
 .imageStripBottom{
@@ -127,6 +126,7 @@
 .imageCard {
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
 }
 
 .imageLeft {
@@ -147,6 +147,12 @@
 }
 
 /* RESPONSIVE */
+
+@media (max-width: 1100px){
+  .masonry{
+    margin-top: 4rem;
+  }
+}
 
 @media (max-width: 900px) {
 
