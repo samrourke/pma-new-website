@@ -4,6 +4,7 @@
   z-index: 9999;
   pointer-events: none;
   overflow: hidden;
+ display: none;
 }
 
 .transitionMedia {

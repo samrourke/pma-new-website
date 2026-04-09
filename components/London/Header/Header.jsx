@@ -14,9 +14,9 @@ export default function Header({
       className={styles.header}
       style={{ alignItems: align, paddingTop: paddingT }}
     >
-      <p className={styles.kicker} style={{ color: textColor }}>
+      {/* <p className={styles.kicker} style={{ color: textColor }}>
         {number}
-      </p>
+      </p> */}
       <h2
         className={styles.title}
         style={{ color: textColor, textAlign: textAlign }}

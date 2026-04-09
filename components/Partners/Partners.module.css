@@ -2,6 +2,7 @@
     
     background-color: black;
     padding: var(--padding-topbottom) var(--padding-leftright);
+    margin-top: -2px;
 }
 
 
@@ -29,7 +30,6 @@
   gap: 40px 60px;
   align-items: center;
   margin-bottom: 2rem;
-
    display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -38,10 +38,11 @@
 }
 
 .logo {
-  max-width: 180px;
-  opacity: .85;
+  width: 120px;
+  height:auto;
+  opacity: .95;
   transition: opacity .3s ease;
-  filter:invert(1);
+  /* filter:invert(1); */
   
 }
 
@@ -55,7 +56,7 @@
         max-width: 70%;
     }
     .logo{
-        max-width: 120px;
+        max-width: 90px;
     }
 }
 

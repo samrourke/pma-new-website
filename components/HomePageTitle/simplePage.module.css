@@ -68,35 +68,59 @@
 
 }
 
+/*show center  */
+
+/* .content::after{
+  content:'';
+  height:100vh;
+  width:2px;
+  color: green;
+  background:green;
+  position: absolute;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  z-index:10;
+} */
+
 .logoWrap {
-    position: absolute;
+  position: absolute;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
-
+  /* pointer-events: none; */
+  overflow: visible;
+  height:100svh;
+  width:100vw;
 }
 
 .logo {
   /* width: min(78vw, 980px); */
   width:100vw;
+  
+  position: relative;
   height: auto;
   display: block;
+  
 }
 
 .cityNav {
   display: flex;
+  
   justify-content: center;
-  gap: clamp(1.5rem, 6vw, 5rem);
-  align-items: end;
-  padding-bottom: 15vh;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
 
+  z-index: 999;
+  width:100%;
 }
 
 .cityLink {
   position: relative;
+  margin-top: 2rem;
   font-family: var(--font-gravity);
-  font-size: clamp(2rem, 5vw, 4.75rem);
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
   line-height: 0.95;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -104,6 +128,16 @@
   text-decoration: none;
   opacity: 0;
   transition: opacity 0.25s ease;
+  width:100%;
+  text-align: center;
+  
+}
+
+.cityLink:nth-child(1) {
+  padding-left: 10vw;
+}
+.cityLink:nth-child(2) {
+  padding-right: 7vw;
 }
 
 .cityLink:hover {
@@ -136,15 +170,18 @@
     width: 100%;
   }
 
-  .cityNav {
-    gap: 1rem;
-    justify-content: space-between;
-    padding-bottom: 1.25rem;
-  }
 
-  .cityLink {
-    font-size: clamp(2rem, 10vw, 3.5rem);
-  }
+
+  
+.logo{
+  width: 140vw;
+}
+.cityLink:nth-child(1) {
+  padding-left: 6vw;
+}
+.cityLink:nth-child(2) {
+  padding-right: 2vw;
+}
 
   .socials {
     left: 1rem;

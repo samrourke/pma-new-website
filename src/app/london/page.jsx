@@ -11,6 +11,7 @@ import Partners from "../../../components/Partners/Partners";
 import Footer from "../../../components/London/Footer/Footer";
 
 import AboutUsStory from "../../../components/London/AboutMinimal/AboutUsStory";
+import AboutUs from "../../../components/London/AboutImageGrid/About";
 
 import What from "../../../components/London/What/What";
 import Contact from "../../../components/London/Contact/Contact";
@@ -225,7 +226,7 @@ export default function London() {
                   className={styles.subtextLink}
                   onClick={() => handleHeroNav("publicity")}
                 >
-                  Publicity
+                  Junkets
                 </button>
                 <button
                   type="button"
@@ -252,30 +253,9 @@ export default function London() {
                 <p>Scroll Down</p>
               </div>
             </div>
-
-            {/* <div className={styles.heroBottom}>
-              <div className={styles.heroTextWrap}>
-                <h1 className={styles.heroText}>
-                  <span className={styles.hl}>Growing Audiences</span>
-                </h1>
-              </div>
-
-              <div className={styles.subtextNav}>
-                <a href="#creative" className={styles.subtextLink}>
-                  Creative Production
-                </a>
-                <a href="#publicity" className={styles.subtextLink}>
-                  Publicity Production
-                </a>
-                <a href="#post" className={styles.subtextLink}>
-                  Post Production
-                </a>
-              </div>
-            </div>
-            */}
           </div>
         </section>
-        <AboutUsStory />
+        <AboutUs />
         <What ref={whatRef} />
 
         <Partners />

@@ -20,7 +20,7 @@ const contactRoutes = [
   {
     label: "Post",
     email: "post@pmafilmtv.com",
-    description: "Post production and delivery enquiries",
+    description: "Post production enquiries",
   },
   {
     label: "Paris",
@@ -49,14 +49,14 @@ export default function Contact() {
         <div className={styles.intro}>
           {/* <p className={styles.kicker}>London</p> */}
 
-          <p className={styles.copy}>
+          {/* <p className={styles.copy}>
             PMA works across creative, publicity and post production for film
             and television campaigns worldwide.
-          </p>
+          </p> */}
 
           <p className={styles.copy}>
-            We are always excited to work with new people so if you're launching
-            a campaign, let's talk.
+            We are always excited to work with existing clients and new people
+            so if you're launching a campaign, let's talk.
           </p>
         </div>
 

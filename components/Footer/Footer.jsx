@@ -60,6 +60,17 @@ export default function Footer() {
           >
             <img className={styles.socialImg} src="/images/socials/insta.png" />
           </a>
+          <a
+            className={styles.socialLink}
+            href="https://uk.linkedin.com/company/pma-film-television"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              className={styles.socialImg}
+              src="/images/socials/linkedIn.png"
+            />
+          </a>
         </div>
       </div>
       <div className={styles.legal}>

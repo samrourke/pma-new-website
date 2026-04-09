@@ -185,7 +185,7 @@ export default function AboutUsStory() {
     >
       <div className={styles.headerWrap}>
         <Header
-          title="Who We Are"
+          title="About Us"
           textColor="var(--offWhite)"
           align="flex-start"
           number="01"

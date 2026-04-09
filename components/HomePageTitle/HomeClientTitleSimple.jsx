@@ -99,20 +99,27 @@ export default function GatewayTitleSimple() {
 
     if (activeCity === "london") {
       tl.to(
-        londonBgRef.current,
+        parisPanelRef.current,
         {
-          autoAlpha: 1,
-          duration: 0.6,
+          autoAlpha: 0,
         },
         0,
       )
+        .to(
+          londonBgRef.current,
+          {
+            autoAlpha: 1,
+            duration: 0.6,
+          },
+          0,
+        )
         .to(
           parisBgRef.current,
           {
             autoAlpha: 0,
             duration: 0.6,
           },
-          0,
+          0.2,
         )
         .to(
           londonPanelRef.current,
@@ -120,16 +127,18 @@ export default function GatewayTitleSimple() {
             autoAlpha: 1,
             scaleX: 1,
           },
-          0,
+          0.5,
         )
         .to(
           parisPanelRef.current,
           {
             autoAlpha: 0,
-            scaleX: 0.96,
           },
           0,
         )
+        .to(parisPanelRef.current, {
+          scaleX: 0.96,
+        })
         .to(
           londonLinkRef.current,
           {
@@ -147,20 +156,27 @@ export default function GatewayTitleSimple() {
         );
     } else if (activeCity === "paris") {
       tl.to(
-        parisBgRef.current,
+        londonPanelRef.current,
         {
-          autoAlpha: 1,
-          duration: 0.6,
+          autoAlpha: 0,
         },
         0,
       )
+        .to(
+          parisBgRef.current,
+          {
+            autoAlpha: 1,
+            duration: 0.6,
+          },
+          0,
+        )
         .to(
           londonBgRef.current,
           {
             autoAlpha: 0,
             duration: 0.6,
           },
-          0,
+          0.2,
         )
         .to(
           parisPanelRef.current,
@@ -168,16 +184,12 @@ export default function GatewayTitleSimple() {
             autoAlpha: 1,
             scaleX: 1,
           },
-          0,
+          0.5,
         )
-        .to(
-          londonPanelRef.current,
-          {
-            autoAlpha: 0,
-            scaleX: 0.96,
-          },
-          0,
-        )
+
+        .to(londonPanelRef.current, {
+          scaleX: 0.96,
+        })
         .to(
           parisLinkRef.current,
           {
@@ -360,34 +372,30 @@ export default function GatewayTitleSimple() {
             playsInline
             preload="auto"
           >
-            <source
-              src="/video/logo/PMA-logo-alpha-noCity-trim.webm"
-              type="video/webm"
-            />
+            <source src="/video/logo/output-all.webm" type="video/webm" />
           </video>
+          <nav ref={navRef} className={styles.cityNav}>
+            <a
+              ref={londonLinkRef}
+              href="/london"
+              className={styles.cityLink}
+              onMouseEnter={() => setActiveCity("london")}
+              onClick={(e) => handleCityClick(e, "london")}
+            >
+              LONDON
+            </a>
+
+            <a
+              ref={parisLinkRef}
+              href="/paris"
+              className={styles.cityLink}
+              onMouseEnter={() => setActiveCity("paris")}
+              onClick={(e) => handleCityClick(e, "paris")}
+            >
+              PARIS
+            </a>
+          </nav>
         </div>
-
-        <nav ref={navRef} className={styles.cityNav}>
-          <a
-            ref={londonLinkRef}
-            href="/london"
-            className={styles.cityLink}
-            onMouseEnter={() => setActiveCity("london")}
-            onClick={(e) => handleCityClick(e, "london")}
-          >
-            LONDON
-          </a>
-
-          <a
-            ref={parisLinkRef}
-            href="/paris"
-            className={styles.cityLink}
-            onMouseEnter={() => setActiveCity("paris")}
-            onClick={(e) => handleCityClick(e, "paris")}
-          >
-            PARIS
-          </a>
-        </nav>
 
         {/* <div className={styles.socials}>
           <a

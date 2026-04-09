@@ -1,10 +1,8 @@
 .wrap {
   position: fixed;
   inset: 0;
-  width:50vw;
-  z-index: 99;
+  z-index: 10;
   pointer-events: none;
-  display: none;
 }
 
 /* TOGGLE */
@@ -12,8 +10,8 @@
 .toggle {
   position: fixed;
   top: var(--padding-leftright);
-  left: var(--padding-leftright);
-  z-index: 120;
+  right: var(--padding-leftright);
+  z-index: 10;
  
 
   display: inline-flex;
@@ -22,6 +20,7 @@
 
   padding: 10px 14px;
   min-height: 42px;
+  opacity: 0.9;
 
   border: 1px solid;
   border-radius: 8px;
@@ -36,6 +35,11 @@
     color 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease;
+}
+
+.toggle:hover, .toggle:focus {
+  opacity: 1;
+  transform: translateY(-1px);
 }
 
 .toggle.light{
@@ -124,12 +128,20 @@
 
 .panel {
   position: absolute;
-  inset: 0;
+  top:calc(var(--padding-leftright) - 10px);
+  right: calc(var(--padding-leftright) - 10px);
+
+  width: 320px;
+  padding: 80px 50px 100px 20px;
+
   background: var(--offWhite);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  border-right: 1px solid var(--ink);
+
 }
 
 .isOpen {
@@ -148,6 +160,7 @@
   width: clamp(90px, 20vw, 200px);
   height: auto;
   filter: invert(1);
+  display: none;
 }
 
 .logoText {
@@ -161,25 +174,20 @@
 /* NAV */
 
 .nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: var(--padding-leftright);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 25px;
-  z-index: 2;
- 
+  gap: 30px;
 }
 
 .socialDiv{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-   left: var(--padding-leftright);
-   display: flex;
-  flex-direction: column;
+ 
+
+ position: absolute;
+ right:50px;
+ bottom:10px;
+ display: flex;
+  flex-direction: row;
   align-items: flex-start;
   gap: 20px;
   z-index: 2;
@@ -187,16 +195,11 @@
 }
 
 .item {
-  font-family: var(--font-gravity, system-ui);
-  font-weight: 800;
+  font-size: var(--fs-h6);
+  font-weight: 700;
+  font-family: var(--font-gravity), sans-serif;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  font-size: var(--fs-h2);
-  line-height: 0.9;
-  color: var(--ink);
-  text-decoration: none;
-
-  text-align: right;
+  letter-spacing: 0.05em;
 }
 
 /* #London.active {
@@ -223,11 +226,10 @@
 }
 
 .socialImg{
-  height:45px;
+  height:25px;
   width:auto;
   transition:   0.3s ease;
   
-
 }
 
 /* .socialLink {
@@ -267,6 +269,7 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
+  display: none;
 }
 
 .metaItem {
@@ -281,66 +284,49 @@
 /* MOBILE */
 
 @media (max-width: 768px) {
+
+.panel {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100svh;
+  border-radius: 0;
+  padding: 0;
+  border: none;
+}
+
+.logoDiv,
+.socialDiv,
+.meta {
+  display: block;
+}
+
+.socialDiv{
  
 
-  /* .nav {
-    top: 84px;
-    left: var(--padding-leftright);
-    right: var(--padding-leftright);
-    align-items: flex-start;
-  } */
-
-  .nav {
-  position: absolute;
-  top: 50%;
-  width:100%;
-  transform: translateY(-50%);
-  right: var(--padding-leftright);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+ 
+   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 20px;
   z-index: 2;
  
 }
 
-  .item {
-    text-align: left;
-    
-  }
-
-  .meta {
-    left: var(--padding-leftright);
-    right: auto;
-    align-items: flex-start;
-  }
-
- 
-  .logoDiv {
-    left: var(--padding-leftright);
-    bottom: 120px;
-    max-width: 320px;
-  }
-
-  .socialDiv{
+.nav {
   position: absolute;
-  height:100svh;
-  bottom:20px;
-
-   right: var(--padding-leftright);
-   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-end;
-  gap: 14px;
-  z-index: 2;
-
-}
-.socialLink h2{
-  font-size: var(--fs-h3)
-}
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  align-items: center;
 }
 
+.item {
+  font-size: var(--fs-h2);
+}
+
+}
 @media (prefers-reduced-motion: reduce) {
   .toggle span,
   .panel,

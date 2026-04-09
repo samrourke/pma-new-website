@@ -10,10 +10,19 @@ import { usePathname } from "next/navigation";
 export default function NavWidget() {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
+  const toggleRef = useRef(null);
   const panelRef = useRef(null);
   const tlRef = useRef(null);
   const pathname = usePathname();
   const [contactLink, setContactLink] = useState("#london-contact");
+
+  const [links, setLinks] = useState([
+    { label: "creative", href: "/" },
+    { label: "junkets", href: "/" },
+    { label: "post", href: "/" },
+    { label: "paris", href: "/paris" },
+    { label: "contact", href: contactLink },
+  ]);
 
   const [theme, setTheme] = useState("light");
 
@@ -31,16 +40,18 @@ export default function NavWidget() {
       ? "brightness(0) saturate(100%) invert(58%) sepia(91%) saturate(6493%) hue-rotate(344deg) brightness(97%) contrast(87%);"
       : "brightness(0) saturate(100%) invert(30%) sepia(57%) saturate(424%) hue-rotate(160deg) brightness(97%) contrast(89%);";
 
-  const links = [
-    { label: "london", href: "/london" },
-    { label: "paris", href: "/paris" },
-    { label: "contact", href: contactLink },
-  ];
+  // const links = [
+  //   { label: "london", href: "/london" },
+  //   { label: "paris", href: "/paris" },
+  //   { label: "contact", href: contactLink },
+  // ];
 
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
   }, [open]);
+
+  //Hide on gateway, change contact link based on office page
 
   useEffect(() => {
     if (pathname === "/") {
@@ -127,6 +138,7 @@ export default function NavWidget() {
       const items = wrap.querySelectorAll(`.${styles.item}`);
       const meta = wrap.querySelectorAll(`.${styles.metaItem}`);
       const logo = wrap.querySelector(`.${styles.logoDiv}`);
+      const toggle = toggleRef.current;
 
       gsap.set(panel, {
         autoAlpha: 0,
@@ -148,6 +160,10 @@ export default function NavWidget() {
         y: 16,
       });
 
+      gsap.set(toggle, {
+        border: "1px solid",
+      });
+
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: "power3.out" },
@@ -156,11 +172,12 @@ export default function NavWidget() {
         },
       });
 
-      tl.to(panel, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.32,
-      })
+      tl.to(toggle, { border: "0px solid", duration: 0.01 })
+        .to(panel, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.32,
+        })
         .to(
           items,
           {
@@ -216,6 +233,7 @@ export default function NavWidget() {
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         type="button"
+        ref={toggleRef}
       >
         <span className={`${styles[theme]} ${styles.icon}`} aria-hidden="true">
           <span style={{ "--open-color": toggleOpenColor }} />
@@ -223,7 +241,7 @@ export default function NavWidget() {
         </span>
         {/* <span className={styles.toggleLabel}>{open ? "Close" : "Menu"}</span> */}
       </button>
-      §
+
       <div
         ref={panelRef}
         className={`${styles.panel} ${open ? styles.isOpen : ""}`}
@@ -240,7 +258,7 @@ export default function NavWidget() {
             />
           </Link>
 
-          <p className={styles.logoText}>Film &amp; Television</p>
+          {/* <p className={styles.logoText}>Film &amp; Television</p> */}
         </div>
 
         <nav className={styles.nav}>
@@ -263,7 +281,7 @@ export default function NavWidget() {
 
             return (
               <Link
-                key={l.href}
+                key={l.label}
                 href={l.href}
                 className={`${styles.item} ${styles[l.label]} ${
                   pathname === l.href ? styles.active : ""
@@ -297,9 +315,21 @@ export default function NavWidget() {
           >
             <img className={styles.socialImg} src="/images/socials/insta.png" />
           </a>
+
+          <a
+            className={styles.socialLink}
+            href="https://uk.linkedin.com/company/pma-film-television"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              className={styles.socialImg}
+              src="/images/socials/linkedIn.png"
+            />
+          </a>
         </div>
 
-        <div className={styles.meta}>
+        {/* <div className={styles.meta}>
           <p className={styles.metaItem}>London / Paris</p>
           <a
             className={styles.metaItem}
@@ -308,7 +338,7 @@ export default function NavWidget() {
           >
             info@pmafilmtv.com
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

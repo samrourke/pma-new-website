@@ -194,3 +194,45 @@ text-transform: uppercase;
 .legalLink:hover::after, .link:hover::after{
   transform:scaleX(1);
 }
+
+
+@media (max-width: 900px) {
+
+.footer {
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  padding: 3rem 1.5rem;
+}
+
+.logoContainer{
+  max-width: 100%;
+}
+
+.logo{
+  width: min(60vw, 260px);
+}
+
+.info{
+  align-items: center;
+  text-align: center;
+}
+
+.locations{
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.socialDiv{
+  gap: 2rem;
+}
+
+.socialImg{
+  height: 40px;
+}
+
+.legal{
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+}
