@@ -42,9 +42,13 @@
 
 .copy {
   max-width: 34ch;
-  font-size: var(--fs-h5);
+  font-size: var(--fs-h3);
   line-height: 1.4;
   margin: 0;
+}
+
+.em{
+  font-weight: 900;
 }
 
 .routes {
@@ -71,14 +75,14 @@
 .routeLabel {
   margin: 0;
   font-family: var(--font-gravity);
-  font-size: 0.95rem;
+  font-size: var(--fs-h6);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .routeDescription {
   margin: 0;
-  font-size: 0.95rem;
+  font-size:var(--fs-h6);
   line-height: 1.35;
   opacity: 0.72;
   max-width: 22ch;

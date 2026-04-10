@@ -56,7 +56,8 @@ export default function Contact() {
 
           <p className={styles.copy}>
             We are always excited to work with existing clients and new people
-            so if you're launching a campaign, let's talk.
+            so if you're launching a campaign,{" "}
+            <span className={styles.em}>let's talk.</span>
           </p>
         </div>
 
