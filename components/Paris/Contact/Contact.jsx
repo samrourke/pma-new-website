@@ -32,7 +32,7 @@ const contactRoutes = [
 export default function Contact() {
   return (
     <section
-      id="london-contact"
+      id="paris-contact"
       className={styles.contact}
       data-nav-theme="dark"
     >
