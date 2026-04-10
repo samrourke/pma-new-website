@@ -121,7 +121,7 @@ export default function GatewayTitleSimple() {
           londonBgRef.current,
           {
             autoAlpha: 1,
-            duration: 0.6,
+            duration: 0.3,
           },
           0,
         )
@@ -129,7 +129,7 @@ export default function GatewayTitleSimple() {
           parisBgRef.current,
           {
             autoAlpha: 0,
-            duration: 0.6,
+            duration: 0.4,
           },
           0.2,
         )
@@ -139,15 +139,15 @@ export default function GatewayTitleSimple() {
             autoAlpha: 1,
             scaleX: 1,
           },
-          0.5,
+          0.3,
         )
-        .to(
-          parisPanelRef.current,
-          {
-            autoAlpha: 0,
-          },
-          0,
-        )
+        // .to(
+        //   parisPanelRef.current,
+        //   {
+        //     autoAlpha: 0,
+        //   },
+        //   0,
+        // )
         .to(parisPanelRef.current, {
           scaleX: 0.96,
         })
@@ -178,7 +178,7 @@ export default function GatewayTitleSimple() {
           parisBgRef.current,
           {
             autoAlpha: 1,
-            duration: 0.6,
+            duration: 0.3,
           },
           0,
         )
@@ -186,7 +186,7 @@ export default function GatewayTitleSimple() {
           londonBgRef.current,
           {
             autoAlpha: 0,
-            duration: 0.6,
+            duration: 0.4,
           },
           0.2,
         )
@@ -196,7 +196,7 @@ export default function GatewayTitleSimple() {
             autoAlpha: 1,
             scaleX: 1,
           },
-          0.5,
+          0.3,
         )
 
         .to(londonPanelRef.current, {
