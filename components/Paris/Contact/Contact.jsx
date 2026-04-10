@@ -25,14 +25,14 @@ const contactRoutes = [
   {
     label: "Post",
     email: "post@pmafilmtv.com",
-    description: "Post production and delivery enquiries",
+    description: "Post production enquiries",
   },
 ];
 
 export default function Contact() {
   return (
     <section
-      id="paris-contact"
+      id="london-contact"
       className={styles.contact}
       data-nav-theme="dark"
     >
@@ -40,16 +40,24 @@ export default function Contact() {
         title="Get In Touch"
         textColor="var(--paris)"
         align="flex-start"
+        number="04"
         paddingT={0}
         textAlign="left"
       />
 
       <div className={styles.inner}>
         <div className={styles.intro}>
+          {/* <p className={styles.kicker}>London</p> */}
+
+          {/* <p className={styles.copy}>
+            PMA works across creative, publicity and post production for film
+            and television campaigns worldwide.
+          </p> */}
+
           <p className={styles.copy}>
             We are always excited to work with existing clients and new people
-            so if you're launching a campaign,
-            <span className={styles.em}> let's talk.</span>
+            so if you're launching a campaign,{" "}
+            <span className={styles.em}>let's talk.</span>
           </p>
         </div>
 

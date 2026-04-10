@@ -32,7 +32,7 @@ export default function NavWidget({ handleNav }) {
 
   const links = [
     { label: "london", href: "/london" },
-    { label: "contact", href: "#london-contact" },
+    { label: "contact", href: "#paris-contact" },
   ];
 
   function onLinkClick(link) {
