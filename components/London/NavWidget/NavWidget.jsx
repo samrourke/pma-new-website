@@ -7,6 +7,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import CityLink from "../../CityLink";
 import { usePathname } from "next/navigation";
+import useResponsiveWidth from "../../ResponsiveWidth/ResponsiveWidth";
 
 export default function NavWidget({ handleNav }) {
   const [open, setOpen] = useState(false);
@@ -15,6 +16,8 @@ export default function NavWidget({ handleNav }) {
   const panelRef = useRef(null);
   const tlRef = useRef(null);
   const pathname = usePathname();
+  const breakpoint = 900;
+  const [width, setWidth] = useState(0);
 
   const filter =
     "brightness(0) saturate(100%) invert(35%) sepia(50%) saturate(1724%) hue-rotate(329deg) brightness(92%) contrast(107%)";
@@ -131,6 +134,26 @@ export default function NavWidget({ handleNav }) {
     return () => observer.disconnect();
   }, [pathname]);
 
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (width > breakpoint) {
+      document
+        .getElementById("nav-widget")
+        ?.style.setProperty("display", "none");
+      setOpen(false);
+    } else {
+      document
+        .getElementById("nav-widget")
+        ?.style.setProperty("display", "block");
+    }
+  }, [width, breakpoint]);
+
   useLayoutEffect(() => {
     const wrap = wrapRef.current;
     const panel = panelRef.current;
@@ -238,7 +261,7 @@ export default function NavWidget({ handleNav }) {
   }, [open]);
 
   return (
-    <div ref={wrapRef} className={styles.widgetWrap}>
+    <div ref={wrapRef} className={styles.widgetWrap} id="nav-widget">
       <div className={styles.buttonWrap}>
         {" "}
         <button

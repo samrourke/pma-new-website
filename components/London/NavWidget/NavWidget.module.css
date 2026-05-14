@@ -3,6 +3,8 @@
   inset: 0;
   z-index: 10;
   pointer-events: none;
+  display: none;
+ 
 }
 
 /*LOGO*/
@@ -13,7 +15,7 @@
   right:var(--padding-leftright);
   transform: translateY(-50%);
   display: none;
-z-index: 999;
+  z-index: 999;
 }
 
 /* TOGGLE */
@@ -51,7 +53,7 @@ z-index: 999;
     color 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease;
-      display: none;
+      
 }
 
 .toggle:hover, .toggle:focus {
@@ -288,8 +290,8 @@ z-index: 999;
 
 
 
-   .toggle {
-    display: inline-flex;
+   .widgetWrap {
+    display: block;
   }
 
   .logoVideo{
