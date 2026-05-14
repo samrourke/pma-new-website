@@ -208,11 +208,11 @@ export default function PageTransition() {
           preload="auto"
         >
           <source
-            src="/video/logo/output-safari.mov"
+            src="/video/logo/transition.mov"
             type='video/mp4; codecs="hvc1"'
           />
 
-          <source src="/video/logo/output.webm" type="video/webm" />
+          <source src="/video/logo/transition.webm" type="video/webm" />
         </video>
 
         <h1 ref={textRef} className={styles.cityText} />
