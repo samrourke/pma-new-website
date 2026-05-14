@@ -32,6 +32,8 @@
 
 .ident{
   opacity: 0;
-  will-change: opacity;
+   will-change: opacity, transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   width:100vw;
 }
