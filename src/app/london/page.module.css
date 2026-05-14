@@ -50,26 +50,39 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--padding-topbottom) var(--padding-leftright);
+  padding: var(--padding-nav) var(--padding-leftright);
 }
 
 .heroTop {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
+  justify-content: center;
   gap: 0.5rem;
-  z-index: 9;
+  z-index: 999;
+
+  overflow: visible;
+  height:1px
 }
 
+
+
 .logo {
-  width: clamp(120px, 10vw, 220px);
+  /* width: clamp(120px, 10vw, 220px); */
   height: auto;
   filter: brightness(0) saturate(100%) invert(93%) sepia(25%) saturate(517%)
     hue-rotate(312deg) brightness(104%) contrast(98%);
     z-index: 2;
-    
+  
 }
+.logoVideo{
+  opacity: 0;
+  will-change: opacity;
+  display: none;
 
+   
+
+}
 .officeTag {
   letter-spacing: 0.13em;
   font-family: var(--font-gravity);
@@ -84,20 +97,41 @@
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;   /* changed */
-  justify-content: flex-end;
-  text-align: left;          /* changed */
+  /* flex-direction: column;
+  align-items: flex-start;   
+  justify-content: center;
+  text-align: left;           */
   padding-left: var(--padding-leftright);
-  padding-bottom: 5rem;
 
+
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.spacer{
+  grid-row: 1;
+  height:100%;
+  width:100%;
+ 
+}
+
+
+
+.heroSlogan{
+  grid-row: 2;
+  align-self: center;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 
 .heroText {
   display: flex;
   flex-direction: column;
-  font-size: clamp(4rem, 8vw, 8rem);
+  font-size: clamp(6rem, 10vw, 8rem);
   max-width: 80vw;
   text-transform: uppercase;
   line-height: 0.9;   /* increased from 0.6 */
@@ -112,36 +146,21 @@
   color: var(--london);
 }
 
-/* .subtextNav {
-  display: flex;
- 
-  gap: 2rem;
-  align-items: flex-start;
-}
 
-.subtextLink {
-  font-family: var(--font-gravity);
-  text-transform: uppercase;
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
-  line-height: 1.2;
-  color: var(--offWhite);
-  text-decoration: none;
-  opacity: 0.88;
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
-} */
 
 .subtextNav {
   display: flex;
-  flex-direction: column;   /* instead of row */
+  flex-direction: row;   
   align-items: flex-start;
-  gap: 0.6rem;
+  gap: 1.5rem;
   margin-top: 0rem;
+  grid-row: 3;
+  height:100%;
+
 }
 
 .subtextLink {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.78;
@@ -185,11 +204,11 @@
   background: transparent;
   color: var(--offWhite);
   padding: 0;
-  cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.8;
   transition:
     opacity 0.25s ease,
     transform 0.25s ease;
+    cursor: auto;
 }
 
 .scrollCue:hover {

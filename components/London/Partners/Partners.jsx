@@ -54,19 +54,23 @@ export default function Partners() {
       ref={sectionRef}
       className={styles.partners}
       data-nav-theme="light"
+      id="partners"
     >
-      <Header
-        textColor="var(--offWhite)"
-        align="center"
-        title="Our Partners"
-        textAlign="center"
-      />
+      <div className={styles.headerWrap}>
+        <Header
+          title="Our Partners"
+          textColor="var(--offWhite)"
+          align="flex-end"
+          paddingT={"var(--padding-topbottom)"}
+          textAlign="left"
+        />
+      </div>
 
       <div className={styles.description}>
-        <p className={styles.copy}>
+        {/* <p className={styles.copy}>
           We're proud to be partners with some of the largest film and tv
           studios around the world.
-        </p>
+        </p> */}
       </div>
 
       <div className={styles.logoGrid}>

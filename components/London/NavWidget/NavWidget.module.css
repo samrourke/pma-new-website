@@ -1,20 +1,36 @@
-.wrap {
+.widgetWrap {
   position: fixed;
   inset: 0;
   z-index: 10;
   pointer-events: none;
 }
 
-/* TOGGLE */
+/*LOGO*/
 
-.toggle {
+.logoVideo{
   position: fixed;
-  top: var(--padding-leftright);
-  right: var(--padding-leftright);
-  z-index: 10;
- 
+  top:3rem;
+  right:var(--padding-leftright);
+  transform: translateY(-50%);
+  display: none;
+z-index: 999;
+}
 
-  display: inline-flex;
+/* TOGGLE */
+.buttonWrap{
+  position: fixed;
+  display: flex;
+  align-items: center;
+ left: var(--padding-leftright);
+ top:3rem;
+  height:1px;
+  width:100vw;
+  z-index: 10;
+  overflow: visible;
+}
+.toggle {
+  
+  top: var(--padding-leftright);
   align-items: center;
   gap: 10px;
 
@@ -35,6 +51,7 @@
     color 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease;
+      display: none;
 }
 
 .toggle:hover, .toggle:focus {
@@ -48,8 +65,8 @@
 }
 
 .toggle.dark{
-  border: 1px solid var(--ink);
-  color: var(--ink);
+  border: 1px solid var(--london);
+  color: var(--london);
 }
 
 .toggle.open{
@@ -141,6 +158,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+
 
 }
 
@@ -266,7 +284,17 @@
 
 /* MOBILE */
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+
+
+
+   .toggle {
+    display: inline-flex;
+  }
+
+  .logoVideo{
+    display: block;
+  }
 
 .panel {
   position: fixed;
@@ -320,3 +348,5 @@
     animation: none !important;
   }
 }
+
+

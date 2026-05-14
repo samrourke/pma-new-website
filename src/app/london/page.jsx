@@ -1,13 +1,16 @@
 "use client";
 
 import styles from "./page.module.css";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
-import Image from "next/image";
+
 import Link from "next/link";
 import NavWidget from "../../../components/London/NavWidget/NavWidget";
+import DesktopNav from "../../../components/London/NavWidget/DesktopNav";
+
 import { transitionStore } from "../../../components/PageTransition/transitionstore";
+
 import Partners from "../../../components/London/Partners/Partners";
 import Footer from "../../../components/London/Footer/Footer";
 import AboutUs from "../../../components/London/AboutImageGrid/About";
@@ -20,15 +23,50 @@ export default function London() {
   const heroMediaSlotRef = useRef(null);
   const heroContentRef = useRef(null);
   const whatRef = useRef(null);
+  const logoVidRef = useRef(null);
 
   const heroSectionRef = useRef(null);
+
+  const [activeSection, setActiveSection] = useState("hero");
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  /*set active section for Nav */
+  useEffect(() => {
+    const sections = heroSectionRef.current.querySelectorAll("section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = Array.from(entries).find(
+          (entry) => entry.isIntersecting,
+        )?.target;
+        if (visibleSection) {
+          if (visibleSection.id === "what") {
+            if (scrollProgress < 0.4) {
+              setActiveSection("creative");
+            } else if (scrollProgress >= 0.4 && scrollProgress < 0.7) {
+              setActiveSection("junkets");
+            } else if (scrollProgress >= 0.7 && scrollProgress < 0.99) {
+              setActiveSection("post");
+            }
+          } else setActiveSection(visibleSection.id);
+        }
+      },
+      { root: null, threshold: 0.5 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, [scrollProgress]);
 
   useLayoutEffect(() => {
     const adoptedVideo = transitionStore.activeVideoEl;
     const heroSlot = heroMediaSlotRef.current;
     const heroContent = heroContentRef.current;
+    const logoVid = logoVidRef.current;
 
-    if (!heroSlot || !heroContent) return;
+    if (!heroSlot || !heroContent || !logoVid) return;
 
     const logoEl = heroContent.querySelector(`.${styles.logo}`);
     const officeTagEl = heroContent.querySelector(`.${styles.officeTag}`);
@@ -86,10 +124,17 @@ export default function London() {
       playPromise.catch(() => {});
     }
 
+    logoVid.currentTime = 0;
+    logoVid.pause();
+
     gsap.set(logoEl, {
       autoAlpha: 0,
       y: -10,
       scale: 0.96,
+    });
+
+    gsap.set(logoVid, {
+      opacity: 0,
     });
 
     gsap.set(officeTagEl, {
@@ -104,36 +149,25 @@ export default function London() {
 
     const tl = gsap.timeline();
 
-    tl.to(logoEl, {
-      autoAlpha: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.7,
-      ease: "power3.out",
-      delay: 0.3,
-    })
-      .to(
-        officeTagEl,
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        0.3,
-      )
-      .to(
-        heroTextEl,
-        {
-          autoAlpha: 1,
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
+    tl.to(
+      heroTextEl,
+      {
+        autoAlpha: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
 
-          ease: "power3.out",
-        },
-        0.28,
-      )
+        ease: "power3.out",
+      },
+      0.28,
+    )
+      .to(logoVid, {
+        opacity: 1,
+      })
+      .call(() => {
+        logoVid.currentTime = 0;
+        logoVid.play();
+      })
       .to(subTextLinks, {
         autoAlpha: 1,
         opacity: 1,
@@ -148,8 +182,9 @@ export default function London() {
           duration: 0.3,
           ease: "power2.out",
         },
-        "+=0.2",
+        "<",
       )
+
       .call(
         () => {
           window.dispatchEvent(new CustomEvent("pma-transition-reveal"));
@@ -166,6 +201,7 @@ export default function London() {
   }, []);
 
   const handleHeroNav = (panelId) => {
+    console.log("Navigating to panel:", panelId);
     whatRef.current?.goToPanel(panelId);
   };
 
@@ -186,11 +222,11 @@ export default function London() {
 
   return (
     <>
-      {" "}
-      <NavWidget handleNav={handleHeroNav} />
+      {/* <NavWidget handleNav={handleHeroNav} currentSection={activeSection} /> */}
+      <DesktopNav handleNav={handleHeroNav} currentSection={activeSection} />
       <div className={styles.container} ref={heroSectionRef}>
         <main className={styles.london}>
-          <section className={styles.hero} data-nav-theme="light">
+          <section className={styles.hero} data-nav-theme="light" id="#hero">
             <div ref={heroMediaSlotRef} className={styles.heroMediaSlot} />
 
             <div className={styles.heroOverlay} />
@@ -198,21 +234,37 @@ export default function London() {
             <div ref={heroContentRef} className={styles.heroContent}>
               <div className={styles.heroTop}>
                 <Link href="/">
-                  <Image
-                    className={styles.logo}
-                    height={177}
-                    width={446}
-                    src="/images/pma-white.png"
-                    alt="PMA"
-                    priority
-                  />
+                  <video
+                    className={styles.logoVideo}
+                    ref={logoVidRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    style={{
+                      width: "clamp(120px, 11vw, 240px)",
+                      height: "auto",
+                    }}
+                  >
+                    <source
+                      src="/video/logo/london-crop-comp.mov"
+                      type='video/mp4; codecs="hvc1"'
+                    />
+                    <source
+                      src="/video/logo/london-crop.webm"
+                      type="video/webm"
+                    />
+                  </video>
                 </Link>
-                <span className={styles.officeTag}>London</span>
+                {/* <span className={styles.officeTag}>London</span> */}
               </div>
 
               <div className={styles.heroBottom}>
-                <h1 className={styles.heroText}>Growing</h1>
-                <h1 className={styles.heroText}>Audiences</h1>
+                <div className={styles.heroSlogan}>
+                  {" "}
+                  <h1 className={styles.heroText}>Growing</h1>
+                  <h1 className={styles.heroText}>Audiences</h1>
+                </div>
 
                 <div className={styles.subtextNav}>
                   <button
@@ -241,23 +293,18 @@ export default function London() {
                 <div className={styles.scrollCueContainer}>
                   <button
                     className={styles.scrollCue}
-                    onClick={() =>
-                      document
-                        .querySelector("#creative")
-                        ?.scrollIntoView({ behavior: "smooth" })
-                    }
                     aria-label="Scroll down"
                     type="button"
                   >
                     <span className={styles.scrollArrow}>↓</span>
                   </button>
-                  <p>Scroll Down</p>
+                  {/* <p>Scroll Down</p> */}
                 </div>
               </div>
             </div>
           </section>
           <AboutUs />
-          <What ref={whatRef} />
+          <What ref={whatRef} handleProgress={setScrollProgress} />
 
           <Partners />
           <Contact />

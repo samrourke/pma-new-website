@@ -46,12 +46,14 @@
    width: min(35vw, 300px);
    height: auto;  
      filter: var(--cream-filter);
+     margin-bottom: 1.5rem;
 }
 
 .tag{
   display: flex;
-  flex-wrap: wrap;
-
+  flex-direction: column;
+  gap:0.6rem;
+  margin-bottom: 1rem;
 
 }
 

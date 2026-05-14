@@ -65,9 +65,13 @@
   width: clamp(120px, 10vw, 220px);
   height: auto;
   filter: brightness(0) saturate(100%) invert(93%) sepia(25%) saturate(517%)
-    hue-rotate(312deg) brightness(104%) contrast(98%);
-    z-index: 2;
-    
+  hue-rotate(312deg) brightness(104%) contrast(98%);
+  z-index: 2; 
+}
+
+.logoVideo{
+  opacity: 0;
+  will-change: opacity;
 }
 
 .officeTag {
@@ -106,6 +110,7 @@
   margin-bottom: 0;
   color:var(--paris);
   opacity: 0;
+  
 }
 
 .hl {

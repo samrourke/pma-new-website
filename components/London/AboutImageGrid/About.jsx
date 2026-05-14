@@ -28,7 +28,7 @@ const images = [
   {
     src: "/images/About/team-junkets.jpeg",
     alt: "Behind the scenes 4",
-    orientation: "landscape",
+    orientation: "portrait",
   },
   {
     src: "/images/About/team-laptop.jpeg",
@@ -55,75 +55,46 @@ const images = [
     alt: "Behind the scenes 9",
     orientation: "landscape",
   },
-];
+  {
+    src: "/images/About/team-nyc.jpeg",
+    alt: "Behind the scenes 10",
+    orientation: "portrait",
+  },
 
-const column1 = [
   {
-    src: "/images/About/team-bridgetJones.jpeg",
-    alt: "Behind the scenes 1",
-    orientation: "landscape",
-    mobile: true,
+    src: "/images/About/team-portrait.jpg",
+    alt: "Behind the scenes 11",
+    orientation: "portrait",
   },
   {
-    src: "/images/About/team-cupcakes.jpeg",
-    alt: "Behind the scenes 2",
+    src: "/images/About/team-stage.JPG",
+    alt: "Behind the scenes 12",
     orientation: "portrait",
-    mobile: false,
   },
   {
-    src: "/images/About/team-hepburn.jpeg",
-    alt: "Behind the scenes 3",
+    src: "/images/About/team-viking.JPG",
+    alt: "Behind the scenes 13",
     orientation: "portrait",
-    mobile: false,
+  },
+  {
+    src: "/images/About/team-tron.jpeg",
+    alt: "Behind the scenes 14",
+    orientation: "portrait",
+  },
+  {
+    src: "/images/About/team-grinch.jpeg",
+    alt: "Behind the scenes 15",
+    orientation: "portrait",
   },
 ];
-const column2 = [
-  {
-    src: "/images/About/team-junkets.jpeg",
-    alt: "Behind the scenes 4",
-    orientation: "landscape",
-    mobile: true,
-  },
-  {
-    src: "/images/About/team-laptop.jpeg",
-    alt: "Behind the scenes 5",
-    orientation: "portrait",
-    mobile: false,
-  },
-];
-const column3 = [
-  {
-    src: "/images/About/team-office-group.jpeg",
-    alt: "Behind the scenes 6",
-    orientation: "landscape",
-    mobile: true,
-  },
-  {
-    src: "/images/About/team-starwars.jpeg",
-    alt: "Behind the scenes 7",
-    orientation: "landscape",
-    mobile: false,
-  },
-  {
-    src: "/images/About/team-trophy.jpeg",
-    alt: "Behind the scenes 8",
-    orientation: "landscape",
-    mobile: true,
-  },
-  {
-    src: "/images/About/team-wicked-pair.jpeg",
-    alt: "Behind the scenes 9",
-    orientation: "landscape",
-    mobile: false,
-  },
-];
-
-const mobileImages = [column1[0], column2[0], column3[0], column3[2]];
 
 export default function AboutUs() {
   const masonryRef = useRef(null);
 
   const [isMobile, setIsMobile] = useState(false);
+
+  const imageRefs = useRef([]);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 900);
@@ -132,84 +103,67 @@ export default function AboutUs() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const items = masonryRef.current.querySelectorAll(`.${styles.item}`);
+  useEffect(() => {
+    const images = imageRefs.current;
+    const section = sectionRef.current;
 
-      const columns = masonryRef.current.querySelectorAll(`.${styles.column}`);
+    if (!images) return;
 
-      console.log("mobile images " + mobileImages);
+    gsap.set(images, { opacity: 0, y: 10 });
 
-      gsap.to(columns[0], {
-        y: -40,
-        scrollTrigger: {
-          trigger: masonryRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      gsap.to(columns[2], {
-        y: 30,
-        scrollTrigger: {
-          trigger: masonryRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      gsap.to(mobileImages[0], {
-        y: 30,
-        scrollTrigger: {
-          trigger: masonryRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      gsap.to(mobileImages[2], {
-        y: 30,
-        scrollTrigger: {
-          trigger: masonryRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      gsap.from(items, {
-        scale: 0.92,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: masonryRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      });
-    }, masonryRef);
-
-    return () => ctx.revert();
-  }, [isMobile]);
+    gsap.to(images, {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      stagger: 0.2,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 25%",
+        once: true,
+      },
+    });
+  }, []);
 
   return (
-    <section className={styles.about} data-nav-theme="light">
+    <section
+      ref={sectionRef}
+      className={styles.about}
+      data-nav-theme="light"
+      id="london-about"
+    >
       <div className={styles.headerWrap}>
         <Header
           title="About Us"
           textColor="var(--offWhite)"
-          align="flex-start"
+          align="flex-end"
           number="01"
-          paddingT={0}
+          paddingT={"var(--padding-topbottom)"}
           textAlign="left"
         />
       </div>
       <div className={styles.inner}>
+        {/* RIGHT IMAGE GRID */}
+        <div className={styles.right}>
+          <div className={styles.collage} ref={masonryRef}>
+            {images.map((img, i) => (
+              <div
+                key={i}
+                className={styles.collageItem}
+                data-index={i}
+                ref={(el) => (imageRefs.current[i] = el)}
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={600}
+                  height={600}
+                  className={styles.collageImage}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
         {/* LEFT TEXT SIDE */}
         <div className={styles.left}>
           <div className={styles.copy}>
@@ -224,98 +178,6 @@ export default function AboutUs() {
               content, we have shaped how stories connect with audiences beyond
               the screen for over twenty years.
             </p>
-          </div>
-        </div>
-
-        {/* RIGHT IMAGE GRID */}
-        <div className={styles.right}>
-          <div className={styles.masonry} ref={masonryRef}>
-            {!isMobile ? (
-              <>
-                <div className={styles.column}>
-                  {column1.map((img, i) => (
-                    <div
-                      key={i}
-                      className={`${styles.item} ${styles[img.orientation]}`}
-                    >
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        width={600}
-                        height={600}
-                        className={styles.image}
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                <div className={styles.column}>
-                  {column2.map((img, i) => (
-                    <div
-                      key={i}
-                      className={`${styles.item} ${styles[img.orientation]}`}
-                    >
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        width={600}
-                        height={600}
-                        className={styles.image}
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                <div className={styles.column}>
-                  {column3.map((img, i) => (
-                    <div
-                      key={i}
-                      className={`${styles.item} ${styles[img.orientation]}`}
-                    >
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        width={600}
-                        height={600}
-                        className={styles.image}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className={styles.imageStrip}>
-                {/* <figure className={`${styles.imageCard} ${styles.imageLeft}`}>
-                  <div className={styles.imageInner}>
-                    <img
-                      src="/images/About/team-junkets.jpeg"
-                      alt="PMA team working on set"
-                      className={styles.image}
-                    />
-                  </div>
-                </figure> */}
-
-                <figure className={`${styles.imageCard} ${styles.imageCenter}`}>
-                  <div className={styles.imageInner}>
-                    <img
-                      src="/images/About/team-office-group.jpeg"
-                      alt="PMA team in the office"
-                      className={styles.image}
-                    />
-                  </div>
-                </figure>
-
-                {/* <figure className={`${styles.imageCard} ${styles.imageRight}`}>
-                  <div className={styles.imageInner}>
-                    <img
-                      src="/images/About/team-wicked-pair.jpeg"
-                      alt="PMA team at an event"
-                      className={styles.image}
-                    />
-                  </div>
-                </figure> */}
-              </div>
-            )}
           </div>
         </div>
       </div>

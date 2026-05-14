@@ -2,216 +2,117 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import Image from "next/image";
 import styles from "./PageTransition.module.css";
-import { transitionStore } from "./transitionstore";
 
-const CITY_COLORS = {
-  london: "var(--london)",
-  paris: "var(--paris)",
-};
-
-export default function PageTransition({ children }) {
-  const overlayRef = useRef(null);
-  const mediaRef = useRef(null);
-  const coverRef = useRef(null);
-  const logoRef = useRef(null);
-  const cityRef = useRef(null);
-  const videoStageRef = useRef(null);
+export default function PageTransition() {
+  const panelRef = useRef(null);
+  const textRef = useRef(null);
+  const identRef = useRef(null);
 
   useEffect(() => {
-    gsap.set(overlayRef.current, {
-      autoAlpha: 0,
-      pointerEvents: "none",
-    });
-
-    gsap.set(logoRef.current, {
-      autoAlpha: 0,
-      y: 20,
-    });
-
-    gsap.set(cityRef.current, {
-      autoAlpha: 0,
-      y: 12,
-    });
-
-    gsap.set(coverRef.current, {
-      scaleX: 0,
-      transformOrigin: "left center",
-    });
-  }, []);
-
-  useEffect(() => {
-    const handleStart = (e) => {
-      document.body.style.pointerEvents = "none";
+    const handleCitySwitch = (e) => {
       const { city } = e.detail || {};
-      const videoEl = transitionStore.activeVideoEl;
+      const text = textRef.current;
 
-      if (
-        !videoEl ||
-        !videoStageRef.current ||
-        !overlayRef.current ||
-        !coverRef.current ||
-        !logoRef.current ||
-        !cityRef.current
-      ) {
-        return;
-      }
+      text.textContent = city === "london" ? "LONDON" : "PARIS";
 
-      const rect = videoEl.getBoundingClientRect();
+      const ident = identRef.current;
 
-      gsap.set(overlayRef.current, {
-        autoAlpha: 1,
-        pointerEvents: "auto",
+      ident.currentTime = 0.3;
+      ident.pause();
+
+      gsap.set(ident, {
+        opacity: 0,
+      });
+      gsap.set(panelRef.current, {
+        scaleX: 0,
+        backgroundColor: city === "london" ? "var(--london)" : "var(--paris)",
+        transformOrigin: "center left",
       });
 
-      // move the real video into the persistent stage
-      videoStageRef.current.innerHTML = "";
-      videoStageRef.current.appendChild(videoEl);
-
-      gsap.set(videoEl, {
-        position: "fixed",
-        left: rect.left,
-        top: rect.top,
-        width: rect.width,
-        height: rect.height,
-        margin: 0,
-        zIndex: 1,
-        objectFit: "cover",
+      gsap.set(text, {
+        opacity: 0,
+        y: 20,
       });
-
-      cityRef.current.textContent = city === "london" ? "London" : "Paris";
-
-      // gsap.set(coverRef.current, {
-      //   autoAlpha: 1,
-      //   scaleX: 0,
-      //   backgroundColor: city === "london" ? "var(--london)" : "var(--paris)",
-      //   transformOrigin: "left center",
-      // });
-
-      gsap.set(logoRef.current, { autoAlpha: 0, y: 20 });
-      gsap.set(cityRef.current, { autoAlpha: 0, y: 12 });
 
       gsap
         .timeline()
-        .to(
-          videoEl,
-          {
-            left: 0,
-            top: 0,
-            width: window.innerWidth,
-            height: window.innerHeight,
-            duration: 0.6,
-            ease: "power3.inOut",
-          },
-          0,
-        )
-        .to(
-          logoRef.current,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.3,
-          },
-          0.15,
-        )
-        .to(
-          cityRef.current,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.3,
-          },
-          0.2,
-        )
-        .to(
-          coverRef.current,
-          {
-            scaleX: 1,
-            duration: 0.7,
-            ease: "power3.inOut",
-          },
-          0.55,
-        );
-    };
+        .to(ident, {
+          opacity: 1,
+        })
+        .call(() => {
+          ident.currentTime = 0.3;
+          ident.play();
+        })
+        .to(panelRef.current, {
+          scaleX: 1,
+          ease: "circ.inOut",
+          duration: 0.6,
+          transformOrigin: "center left",
+        })
 
-    const handleReveal = () => {
-      document.body.style.pointerEvents = "";
-      if (
-        !overlayRef.current ||
-        !coverRef.current ||
-        !logoRef.current ||
-        !cityRef.current ||
-        !mediaRef.current
-      ) {
-        return;
-      }
+        .to(text, {
+          opacity: 1,
+          y: 0,
+        })
 
-      gsap
-        .timeline({
-          onComplete: () => {
-            gsap.set(overlayRef.current, {
-              autoAlpha: 0,
-              pointerEvents: "none",
-            });
-
-            if (mediaRef.current) {
-              mediaRef.current.innerHTML = "";
-            }
-          },
+        .to(panelRef.current, {
+          scaleX: 0,
+          delay: 0.25,
+          ease: "circ.inOut",
+          duration: 0.6,
+          transformOrigin: "center right",
         })
         .to(
-          [logoRef.current, cityRef.current],
+          ident,
           {
-            autoAlpha: 0,
-            y: 12,
-            duration: 0.25,
-            stagger: 0.04,
-            ease: "power2.inOut",
+            opacity: 0,
+            duration: 0.4,
           },
-          0,
+          "-=0.4",
         )
         .to(
-          [coverRef.current, mediaRef.current],
+          text,
           {
-            autoAlpha: 0,
-            duration: 0.35,
-            ease: "power2.out",
+            opacity: 0,
+            y: 20,
+
+            ease: "circ.inOut",
           },
-          0.12,
-        );
+          "-=0.5",
+        )
+        .call(() => {
+          ident.pause();
+          ident.currentTime = 0.3;
+        });
     };
 
-    window.addEventListener("pma-transition-start", handleStart);
-    window.addEventListener("pma-transition-reveal", handleReveal);
+    window.addEventListener("city-switch", handleCitySwitch);
 
-    return () => {
-      window.removeEventListener("pma-transition-start", handleStart);
-      window.removeEventListener("pma-transition-reveal", handleReveal);
-    };
+    return () => window.removeEventListener("city-switch", handleCitySwitch);
   }, []);
 
   return (
     <>
-      <div ref={overlayRef} className={styles.transitionOverlay}>
-        <div ref={videoStageRef} className={styles.videoStage} />
-        <div ref={mediaRef} className={styles.transitionMedia} />
-        <div ref={coverRef} className={styles.transitionCover} />
-
-        <div className={styles.logoOverlay}>
-          <Image
-            ref={logoRef}
-            className={styles.logoText}
-            height={177}
-            width={446}
-            src="/images/pma-white.png"
-            alt="PMA"
-            priority
+      <div ref={panelRef} className={styles.transition}></div>
+      <div className={styles.city}>
+        <video
+          ref={identRef}
+          className={styles.ident}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+        >
+          <source
+            src="/video/logo/output-safari.mov"
+            type='video/mp4; codecs="hvc1"'
           />
-          <div ref={cityRef} className={styles.cityText} />
-        </div>
+          <source src="/video/logo/output.webm" type="video/webm" />
+        </video>
+
+        <h1 ref={textRef} className={styles.cityText}></h1>
       </div>
-      {children}
     </>
   );
 }

@@ -1,21 +1,25 @@
 .about {
-  padding: 3rem 2rem ;
+  padding: 3rem 0 6rem;
   
 
 }
 
 .inner {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 5rem;
   align-items: start;
+
+  padding-right: var(--padding-leftright);
 }
 
 /* LEFT TEXT */
 
 .left {
-  max-width: 500px;
-  margin-left: var(--padding-leftright);
+ 
+
+  text-align: right;
+
 }
 
 
@@ -36,6 +40,7 @@
 
 .right {
   width: 100%;
+  padding: 1rem;
 }
 
 /* Masonry layout */
@@ -55,17 +60,7 @@
 
 }
 
-/* .column:nth-child(1){
-  margin-top: -30px;
-}
 
-.column:nth-child(2){
-  margin-top: 20px;
-}
-
-.column:nth-child(3){
-  margin-top: -10px;
-} */
 
 .item {
   break-inside: avoid;
@@ -96,62 +91,194 @@
 
 /* Hover animation */
 
-.item:hover .image {
-  transform: scale(1.09);
-}
 
-/* Optional subtle lift */
 
-.item:hover {
-  transform: translateY(-2px);
-  transition: transform 0.4s ease;
-}
 
-.imageStrip {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: start;
-  margin-top: clamp(1rem, 1vw, 2rem);
-}
 
-.imageStripBottom{
-  display: grid;
-  grid-template-columns: 5fr 3fr;
-  gap: clamp(0.5rem, 1vw, 1rem);
-  align-items: start;
-  /* margin-bottom: clamp(4rem, 8vw, 8rem); */
 
-}
+/*New Collage Sysytem*/
 
-.imageCard {
+.collage {
   position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin-bottom: 20%;
+  margin-top: -20%;
+}
+
+.collageItem {
+  position: absolute;
+  will-change: transform, opacity;
+  border-radius: 5px;
   overflow: hidden;
-  border-radius: 4px;
+  border: 5px solid var(--offWhite);
+  opacity: 0;
+
 }
 
-.imageLeft {
-  margin-top: clamp(1.25rem, 2vw, 2rem);
-    aspect-ratio: 1.4 / 1;
-    transform: translateY(9%);
+.collageItem:hover .collageImage {
+  transform: scale(1.13);
 }
 
-.imageCenter {
-  margin-top: 0;
+.collageImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border:none;
+  padding:0;
+  margin:0;
+  transform: scale(1.1);
+
+}
+/* ===== ANCHOR IMAGES (larger, structure the layout) ===== */
+.collageItem:nth-child(1) {
+  
+   top: 93%;
+  left: 2%;
+  width: 40%;
+  z-index: 4;
+  
   
 }
 
-.imageRight {
-  margin-top: clamp(1.25rem, 2vw, 2rem);
-       aspect-ratio: 1.4 / 1;
-         transform: translateY(8%);
+.collageItem:nth-child(8) {
+  top: 1%;
+  left: 8%;
+  width: 40%;
+  z-index: 4;
+  
 }
+
+.collageItem:nth-child(2) {
+  top: 7%;
+  left: 48%;
+  width: 32%;
+  z-index: 3;
+}
+
+.collageItem:nth-child(3) {
+  top: 55%;
+  left: 6%;
+  width: 33%;
+  z-index: 5;
+}
+
+.collageItem:nth-child(4) {
+  top: 8%;
+  left: 75%;
+  width: 32%;
+  z-index: 2;
+}
+
+.collageItem:nth-child(5) {
+  top: 67%;
+  left: 50%;
+  width: 33%;
+  z-index: 4;
+}
+
+.collageItem:nth-child(6) {
+  top: 33%;
+  left: 28%;
+  width: 45%;
+  z-index: 9;
+}
+
+.collageItem:nth-child(7) {
+  top: 74%;
+  left: 18%;
+  width: 32%;
+  z-index: 5;
+}
+
+/* ===== SUPPORTING IMAGES (smaller, fill space) ===== */
+
+/* .collageItem:nth-child(8) {
+  top: 5%;
+  left: 32%;
+  width: 140px;
+  z-index: 2;
+} */
+
+.collageItem:nth-child(9) {
+  top: 56%;
+  left: 81%;
+  width: 28%;
+  z-index: 10;
+}
+
+.collageItem:nth-child(10) {
+  top: 25%;
+  left: 3%;
+  width: 30%;
+  z-index: 1;
+}
+
+.collageItem:nth-child(11) {
+  top: 41%;
+  left: 68%;
+  width: 40%;
+  z-index: 8;
+}
+
+.collageItem:nth-child(12) {
+  top: 75%;
+  left: 80%;
+  width: 32%;
+  z-index: 9;
+}
+
+.collageItem:nth-child(13) {
+  top: 56%;
+  left: 39%;
+  width: 29%;
+  z-index: 9;
+}
+
+.collageItem:nth-child(14) {
+  top: 99%;
+  left: 35%;
+  width: 35%;
+  z-index: 9;
+}
+
+.collageItem:nth-child(15) {
+  top: 93%;
+  left: 69%;
+  width: 32%;
+  z-index: 10;
+}
+.collageItem:nth-child(1) { transform: rotate(-8deg); }
+.collageItem:nth-child(2) { transform: rotate(-2deg); }
+.collageItem:nth-child(3) { transform: rotate(1.5deg); }
+.collageItem:nth-child(4) { transform: rotate(7deg); }
+.collageItem:nth-child(5) { transform: rotate(-1deg); }
+.collageItem:nth-child(7) { transform: rotate(1deg); }
+.collageItem:nth-child(8) { transform: rotate(-2deg); }
+.collageItem:nth-child(9) { transform: rotate(8deg); }
+
+.collageItem:nth-child(10) { transform: rotate(-1.5deg); }
+.collageItem:nth-child(12) { transform: rotate(1.8deg); }
+.collageItem:nth-child(13) { transform: rotate(-2deg); }
+.collageItem:nth-child(14) { transform: rotate(-1deg); }
+.collageItem:nth-child(15) { transform: rotate(-6deg); }
+
+
+
+
 
 /* RESPONSIVE */
 
 @media (max-width: 1100px){
-  .masonry{
-    margin-top: 4rem;
-  }
+ .collage{
+  max-width: 80vw;
+
+ }
+
+ .collageItem{
+  border:3px solid var(--offWhite)
+ }
 }
 
 @media (max-width: 900px) {
@@ -165,20 +292,27 @@
     max-width: 100%;
   }
 
-  .imageGrid {
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 80px;
-  }
+  .collageItem{
+  border:3px solid var(--offWhite)
+ }
 
  @media (max-width: 900px) {
-
-  .masonry {
-  display: flex;
+  .inner{
+    display: flex;
+    flex-direction: column-reverse;
   }
 
-  .item{
-    width:120px;
+  .left{
+    max-width: 80%;
+    align-self: flex-end;
+    text-align: right;
+    
   }
+
+ .collage{
+  margin-top: 0;
+  margin-bottom: 5rem;
+ }
 
 }
 

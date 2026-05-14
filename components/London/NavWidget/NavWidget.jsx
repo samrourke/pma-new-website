@@ -5,6 +5,7 @@ import styles from "./NavWidget.module.css";
 import Link from "next/link";
 import gsap from "gsap";
 import Image from "next/image";
+import CityLink from "../../CityLink";
 import { usePathname } from "next/navigation";
 
 export default function NavWidget({ handleNav }) {
@@ -14,6 +15,10 @@ export default function NavWidget({ handleNav }) {
   const panelRef = useRef(null);
   const tlRef = useRef(null);
   const pathname = usePathname();
+
+  const filter =
+    "brightness(0) saturate(100%) invert(35%) sepia(50%) saturate(1724%) hue-rotate(329deg) brightness(92%) contrast(107%)";
+  const [logoFilter, setLogoFilter] = useState("none");
 
   const internalLinks = [
     {
@@ -30,10 +35,7 @@ export default function NavWidget({ handleNav }) {
     },
   ];
 
-  const links = [
-    { label: "paris", href: "/paris" },
-    { label: "contact", href: "#london-contact" },
-  ];
+  const links = [{ label: "contact", href: "#london-contact" }];
 
   function onLinkClick(link) {
     setOpen(false);
@@ -97,6 +99,9 @@ export default function NavWidget({ handleNav }) {
 
   useEffect(() => {
     const sections = document.querySelectorAll("[data-nav-theme]");
+    const darkThemeSections = Array.from(sections).filter(
+      (s) => s.dataset.navTheme === "dark",
+    );
     if (!sections.length) return;
 
     const observer = new IntersectionObserver(
@@ -106,18 +111,22 @@ export default function NavWidget({ handleNav }) {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
         if (visible) {
-          const nextTheme = visible.target.getAttribute("data-nav-theme");
-          if (nextTheme) setTheme(nextTheme);
+          // setColor("var(--london)");
+          setTheme("dark");
+          setLogoFilter(filter);
+        } else {
+          setTheme("light");
+          setLogoFilter("none");
         }
       },
       {
         root: null,
-        rootMargin: "-10% 0px -75% 0px",
+        rootMargin: "-20% 0px -60% 0px", // more forgiving
         threshold: 0,
       },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    darkThemeSections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
   }, [pathname]);
@@ -166,8 +175,12 @@ export default function NavWidget({ handleNav }) {
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: "power3.out" },
+        onUpdate: () => {
+          setLogoFilter(filter);
+        },
         onReverseComplete: () => {
           gsap.set(panel, { autoAlpha: 0 });
+          setLogoFilter("none");
         },
       });
 
@@ -225,20 +238,26 @@ export default function NavWidget({ handleNav }) {
   }, [open]);
 
   return (
-    <div ref={wrapRef} className={styles.wrap}>
-      <button
-        className={`${styles[theme]} ${styles.toggle} ${open ? styles.open : ""}`}
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-        type="button"
-        ref={toggleRef}
-      >
-        <span className={`${styles[theme]} ${styles.icon}`} aria-hidden="true">
-          <span style={{ "--open-color": toggleOpenColor }} />
-          <span style={{ "--open-color": toggleOpenColor }} />
-        </span>
-      </button>
+    <div ref={wrapRef} className={styles.widgetWrap}>
+      <div className={styles.buttonWrap}>
+        {" "}
+        <button
+          className={`${styles[theme]} ${styles.toggle} ${open ? styles.open : ""}`}
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          type="button"
+          ref={toggleRef}
+        >
+          <span
+            className={`${styles[theme]} ${styles.icon}`}
+            aria-hidden="true"
+          >
+            <span style={{ "--open-color": toggleOpenColor }} />
+            <span style={{ "--open-color": toggleOpenColor }} />
+          </span>
+        </button>
+      </div>
 
       <div
         ref={panelRef}
@@ -260,6 +279,21 @@ export default function NavWidget({ handleNav }) {
         </div>
 
         <nav className={styles.nav}>
+          <button
+            className={`${styles.item}`}
+            onClick={() => {
+              const el = document.getElementById("london-about");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+                setOpen(false);
+              }
+
+              // keep URL in sync
+              window.history.pushState(null, "", "#london-about");
+            }}
+          >
+            About
+          </button>
           {internalLinks.map((link, i) => {
             return (
               <button
@@ -271,19 +305,26 @@ export default function NavWidget({ handleNav }) {
               </button>
             );
           })}
-          {links.map((link, i) => {
-            return (
-              <Link
-                key={i}
-                href={link.href}
-                className={`${styles.item} ${styles[link.label]}`}
-                onClick={() => onLinkClick(link)}
-                id={link.label === "paris" ? styles.parisLink : undefined}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          <CityLink href="/paris" city="paris">
+            <button id={styles.parisLink} className={styles.item}>
+              Paris
+            </button>
+          </CityLink>
+          <button
+            className={`${styles.item}`}
+            onClick={() => {
+              const el = document.getElementById("london-contact");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+                setOpen(false);
+              }
+
+              // keep URL in sync
+              window.history.pushState(null, "", "#london-contact");
+            }}
+          >
+            Contact
+          </button>
         </nav>
         <div className={styles.socialDiv}>
           <a
@@ -316,17 +357,6 @@ export default function NavWidget({ handleNav }) {
             />
           </a>
         </div>
-
-        {/* <div className={styles.meta}>
-          <p className={styles.metaItem}>London / Paris</p>
-          <a
-            className={styles.metaItem}
-            href="mailto:info@pmafilmtv.com"
-            onClick={() => setOpen(false)}
-          >
-            info@pmafilmtv.com
-          </a>
-        </div> */}
       </div>
     </div>
   );

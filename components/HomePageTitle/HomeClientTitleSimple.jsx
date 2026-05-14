@@ -42,6 +42,26 @@ export default function GatewayTitleSimple() {
 
   const [activeCity, setActiveCity] = useState(null);
 
+  /*Monitor Mouse Position and set Active City */
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      const midpoint = window.innerWidth / 2;
+      setActiveCity(event.clientX < midpoint ? "london" : "paris");
+    };
+
+    const timeoutId = setTimeout(() => {
+      window.addEventListener("mousemove", handleMouseMove);
+    }, 2500);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  console.log(activeCity);
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set([londonPanelRef.current, parisPanelRef.current], {
@@ -103,6 +123,7 @@ export default function GatewayTitleSimple() {
   }, []);
 
   useEffect(() => {
+    if (isTransitioning.current) return;
     hoverTl.current?.kill();
 
     const tl = gsap.timeline({
@@ -141,13 +162,6 @@ export default function GatewayTitleSimple() {
           },
           0.3,
         )
-        // .to(
-        //   parisPanelRef.current,
-        //   {
-        //     autoAlpha: 0,
-        //   },
-        //   0,
-        // )
         .to(parisPanelRef.current, {
           scaleX: 0.96,
         })
@@ -240,6 +254,7 @@ export default function GatewayTitleSimple() {
   function handleCityClick(e, city) {
     e.preventDefault();
     if (isTransitioning.current) return;
+    if (!activeCity) return;
 
     isTransitioning.current = true;
 
@@ -388,7 +403,10 @@ export default function GatewayTitleSimple() {
         </div>
       </div>
 
-      <div className={styles.content}>
+      <div
+        className={styles.content}
+        onMouseDown={(e) => handleCityClick(e, activeCity)}
+      >
         <div ref={logoWrapRef} className={styles.logoWrap}>
           <video
             ref={logoRef}

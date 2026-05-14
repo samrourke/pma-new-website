@@ -1,7 +1,7 @@
 export const londonPartners = [
   "/partners/London-Logos/a24.png",
 
-  "/partners/London-Logos/academy.png",
+  "/partners/London-Logos/the-academy-pr.png",
   "/partners/London-Logos/altitude.png",
 
   "/partners/London-Logos/black-bear-logo.png",
@@ -17,8 +17,7 @@ export const londonPartners = [
   "/partners/London-Logos/hope-and-glory.png",
   "/partners/London-Logos/itvx.png",
   "/partners/London-Logos/lionsgate.png",
-  "/partners/London-Logos/mcpr.png",
-  "/partners/London-Logos/mgm-plus.png",
+  "/partners/London-Logos/amazon-mgm-studios.png",
   "/partners/London-Logos/netflix.png",
   "/partners/London-Logos/now.png",
   "/partners/London-Logos/organic.png",
@@ -29,7 +28,7 @@ export const londonPartners = [
   "/partners/London-logos/searchlight.png",
   "/partners/London-Logos/shondaland.png",
   "/partners/London-Logos/sky.png",
-  "/partners/London-Logos/sony.avif",
+  "/partners/London-Logos/sony-pictures.png",
   "/partners/London-Logos/studio-canal.png",
   "/partners/London-Logos/substance.png",
   "/partners/London-Logos/team-pr.png",

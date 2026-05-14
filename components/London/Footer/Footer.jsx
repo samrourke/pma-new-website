@@ -14,11 +14,9 @@ export default function Footer() {
           alt="PMA Logo"
         />
         <div className={styles.tag}>
-          <h1 className={styles.tagline}>
-            <span>Core Values</span>
-            <span>Branded Content</span>
-            <span>Growing Audiences.</span>
-          </h1>
+          <h1 className={styles.tagline}>Core Values</h1>
+          <h1 className={styles.tagline}>Branded Content</h1>
+          <h1 className={styles.tagline}>Growing Audiences</h1>
         </div>
         <div className={styles.bottomMeta}>
           <div className={styles.legal}>

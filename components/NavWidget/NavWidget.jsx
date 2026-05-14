@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+
 import styles from "./NavWidget.module.css";
 import Link from "next/link";
 import gsap from "gsap";

@@ -41,7 +41,7 @@ export default function Contact() {
         textColor="var(--london)"
         align="flex-start"
         number="04"
-        paddingT={0}
+        paddingT={"var(--padding-topbottom)"}
         textAlign="left"
       />
 

@@ -8,73 +8,142 @@ import {
   forwardRef,
   useImperativeHandle,
 } from "react";
+
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+
 import styles from "./What.module.css";
-import Header from "../Header/Header";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-const What = forwardRef(function What(_, ref) {
+const What = forwardRef(function What({ handleProgress }, ref) {
   const sectionRef = useRef(null);
   const panelsRef = useRef([]);
-  const headerRef = useRef(null);
+
+  // store BOTH timeline + trigger
+  const timelineDataRef = useRef(null);
 
   const modalVideoRef = useRef(null);
-  const triggerRef = useRef(null);
   const [activeVideo, setActiveVideo] = useState(null);
 
   const services = [
     {
       title: "CREATIVE",
-      text: "Behind-the-scenes films, branded content and campaign storytelling built for modern audiences.",
       video: "/video/trailer.mp4",
       id: "creative",
     },
     {
       title: "JUNKETS",
-      text: "International press junkets, screenings and Q&As delivered with precision and experience.",
       video: "/video/press.mp4",
       id: "publicity",
     },
     {
       title: "POST",
-      text: "Editing, finishing and delivery handled in-house to keep every campaign sharp, cohesive and on time.",
       video: "/video/trailer.mp4",
       id: "post",
     },
   ];
 
+  // =========================================
+  // IMPERATIVE NAVIGATION
+  // =========================================
+
   useImperativeHandle(ref, () => ({
     goToPanel(panelId) {
-      const st = triggerRef.current;
+      console.group("goToPanel");
+
+      console.log("Requested panel:", panelId);
+
+      const data = timelineDataRef.current;
       const section = sectionRef.current;
-      if (!st || !section) return;
 
-      const progressMap = {
-        creative: 0.3,
-        publicity: 0.62,
-        post: 1,
-      };
+      if (!data || !section) {
+        console.warn("Timeline or section not ready");
 
-      const targetProgress = progressMap[panelId];
-      if (targetProgress == null) return;
+        console.groupEnd();
+        return;
+      }
 
-      const targetScroll = st.start + (st.end - st.start) * targetProgress;
+      const { trigger, timeline } = data;
 
-      gsap.to(window, {
-        duration: 2,
-        ease: "power1.inOut",
-        scrollTo: targetScroll,
+      console.log("Trigger exists:", !!trigger);
+      console.log("Timeline exists:", !!timeline);
+
+      if (!trigger || !timeline) {
+        console.warn("Missing trigger or timeline");
+
+        console.groupEnd();
+        return;
+      }
+
+      // force fresh calculations
+      ScrollTrigger.refresh();
+
+      requestAnimationFrame(() => {
+        const targetTime = timeline.labels[panelId];
+
+        console.log("Target label time:", targetTime);
+
+        if (targetTime == null) {
+          console.warn("Unknown panel label:", panelId);
+
+          console.groupEnd();
+          return;
+        }
+
+        const timelineDuration = timeline.duration();
+
+        const targetProgress = targetTime / timelineDuration;
+
+        const targetScroll =
+          trigger.start + (trigger.end - trigger.start) * targetProgress;
+
+        //for DEBUGGING - log all relevant values
+        //
+        // console.log({
+        //   start: trigger.start,
+        //   end: trigger.end,
+        //   progress: trigger.progress,
+        //   targetProgress,
+        //   targetScroll,
+        // });
+
+        // kill any active scroll tweens
+
+        gsap.killTweensOf(window);
+
+        gsap.to(window, {
+          scrollTo: {
+            y: targetScroll,
+            autoKill: false,
+          },
+
+          duration: 0.5,
+          ease: "power2.out",
+
+          overwrite: "auto",
+
+          onStart: () => {
+            console.log("Scroll started");
+          },
+
+          onComplete: () => {
+            console.log("Scroll complete");
+            console.groupEnd();
+          },
+        });
       });
     },
   }));
 
+  // =========================================
+  // MAIN GSAP SETUP
+  // =========================================
+
   useLayoutEffect(() => {
     const section = sectionRef.current;
     const panels = panelsRef.current.filter(Boolean);
-    const header = headerRef.current;
 
     if (!section || !panels.length) return;
 
@@ -87,6 +156,10 @@ const What = forwardRef(function What(_, ref) {
     let ctx;
     let cancelled = false;
 
+    // -----------------------------------------
+    // wait for all media
+    // -----------------------------------------
+
     const waitForMedia = async () => {
       const media = Array.from(section.querySelectorAll("video, img"));
 
@@ -94,17 +167,29 @@ const What = forwardRef(function What(_, ref) {
         media.map((el) => {
           if (el.tagName === "IMG") {
             if (el.complete) return Promise.resolve();
+
             return new Promise((resolve) => {
-              el.addEventListener("load", resolve, { once: true });
-              el.addEventListener("error", resolve, { once: true });
+              el.addEventListener("load", resolve, {
+                once: true,
+              });
+
+              el.addEventListener("error", resolve, {
+                once: true,
+              });
             });
           }
 
           if (el.tagName === "VIDEO") {
             if (el.readyState >= 1) return Promise.resolve();
+
             return new Promise((resolve) => {
-              el.addEventListener("loadedmetadata", resolve, { once: true });
-              el.addEventListener("error", resolve, { once: true });
+              el.addEventListener("loadedmetadata", resolve, {
+                once: true,
+              });
+
+              el.addEventListener("error", resolve, {
+                once: true,
+              });
             });
           }
 
@@ -113,131 +198,237 @@ const What = forwardRef(function What(_, ref) {
       );
     };
 
+    // -----------------------------------------
+    // init GSAP
+    // -----------------------------------------
+
     const init = async () => {
+      // wait for fonts
       if (document.fonts?.ready) {
         await document.fonts.ready;
       }
 
+      // wait for media
       await waitForMedia();
 
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-      await new Promise((resolve) => requestAnimationFrame(resolve));
+      // allow layout to settle
+      await new Promise((r) => requestAnimationFrame(r));
+
+      await new Promise((r) => requestAnimationFrame(r));
 
       if (cancelled) return;
 
       ctx = gsap.context(() => {
-        gsap.set(panels[0], { yPercent: 40 });
-        gsap.set(panels[1], { yPercent: 100 });
-        gsap.set(panels[2], { yPercent: 200 });
+        // initial states
+        gsap.set(panels[0], {
+          yPercent: 0,
+          filter: "brightness(1)",
+        });
 
-        gsap.set([header], { opacity: 0, y: 50 });
+        gsap.set(panels[1], {
+          yPercent: 100,
+          filter: "brightness(0)",
+        });
+
+        gsap.set(panels[2], {
+          yPercent: 200,
+          filter: "brightness(0)",
+        });
+
+        // -------------------------------------
+        // timeline
+        // -------------------------------------
 
         const tl = gsap.timeline({
+          defaults: {
+            ease: "none",
+          },
+
           scrollTrigger: {
             trigger: section,
+
             start: "top top",
-            end: () => `+=${window.innerHeight * 4.25}`,
+
+            end: () => `+=${window.innerHeight * 3.4}`,
+
             scrub: 1,
+
             pin: true,
+
             anticipatePin: 1,
+
             invalidateOnRefresh: true,
+
             refreshPriority: 1,
+
+            fastScrollEnd: true,
+
+            onUpdate: (self) => {
+              handleProgress(Number(self.progress.toFixed(2)));
+            },
+
+            onRefresh: (self) => {
+              console.log("ScrollTrigger refreshed", {
+                start: self.start,
+                end: self.end,
+              });
+            },
           },
         });
 
-        triggerRef.current = tl.scrollTrigger;
+        // -------------------------------------
+        // LABELS
+        // -------------------------------------
 
-        gsap.to(header, {
-          opacity: 1,
-          y: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top bottom-=200",
-            end: "+=200",
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        });
+        tl.addLabel("creative");
 
-        tl.to({}, { duration: 0.25 });
-        tl.to(panels[0], { yPercent: 0, ease: "none", duration: 1 });
-        tl.to({}, { duration: 0.25 });
-        tl.to(panels[1], { yPercent: 0, ease: "none", duration: 1 });
-        tl.to({}, { duration: 0.25 });
-        tl.to(panels[2], { yPercent: 0, ease: "none", duration: 1 });
-        tl.to({}, { duration: 0.35 });
+        // -------------------------------------
+        // TRANSITION 1
+        // -------------------------------------
+
+        tl.to(panels[0], {
+          yPercent: -10,
+          opacity: 0.8,
+          duration: 1,
+        })
+
+          .to(
+            panels[1],
+            {
+              yPercent: 0,
+              filter: "brightness(1)",
+              duration: 1,
+            },
+            "<",
+          )
+
+          .addLabel("publicity")
+
+          // -----------------------------------
+          // TRANSITION 2
+          // -----------------------------------
+
+          .to(
+            panels[1],
+            {
+              yPercent: -10,
+              opacity: 0.8,
+              duration: 1,
+            },
+            ">",
+          )
+
+          .to(
+            panels[2],
+            {
+              yPercent: 0,
+              filter: "brightness(1)",
+              duration: 1.2,
+            },
+            "<-0.6",
+          )
+
+          .addLabel("post");
+
+        // store references
+        timelineDataRef.current = {
+          timeline: tl,
+          trigger: tl.scrollTrigger,
+        };
       }, section);
 
+      // final refresh
       ScrollTrigger.refresh();
     };
 
     init();
 
-    const handleLoad = () => ScrollTrigger.refresh();
+    // -----------------------------------------
+    // refresh handlers
+    // -----------------------------------------
+
+    const handleLoad = () => {
+      ScrollTrigger.refresh();
+    };
+
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
     window.addEventListener("load", handleLoad);
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
       cancelled = true;
+
       window.removeEventListener("load", handleLoad);
-      triggerRef.current = null;
+
+      window.removeEventListener("resize", handleResize);
+
+      gsap.killTweensOf(window);
+
+      timelineDataRef.current = null;
+
       ctx?.revert();
     };
-  }, []);
+  }, [handleProgress]);
+
+  // =========================================
+  // MODAL BODY LOCK
+  // =========================================
 
   useEffect(() => {
-    if (activeVideo) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+    document.body.style.overflow = activeVideo ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
     };
   }, [activeVideo]);
 
+  // =========================================
+  // ESC KEY CLOSE
+  // =========================================
+
   useEffect(() => {
-    function handleKeyDown(e) {
-      if (e.key === "Escape") setActiveVideo(null);
-    }
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setActiveVideo(null);
+      }
+    };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
+
+  // =========================================
+  // AUTOPLAY MODAL VIDEO
+  // =========================================
 
   useEffect(() => {
     if (!activeVideo || !modalVideoRef.current) return;
+
     modalVideoRef.current.play?.().catch(() => {});
   }, [activeVideo]);
 
+  // =========================================
+  // RENDER
+  // =========================================
+
   return (
     <>
-      <section id="what" className={styles.what} ref={sectionRef}>
-        <div
-          className={styles.headerWrap}
-          ref={headerRef}
-          data-nav-theme="dark"
-        >
-          <Header
-            number="02"
-            title="Our Work"
-            textColor="var(--london)"
-            align="flex-start"
-            paddingT="var(--padding-topbottom)"
-            textAlign="left"
-          >
-            {/* <div className={styles.description} ref={descriptionRef}>
-              <p className={styles.copy}>We build campaigns end to end.</p>
-              <p className={styles.copy}>
-                From BTS and creative content through post production to press
-                and promotion.
-              </p>
-            </div> */}
-          </Header>
-        </div>
-
-        <div className={styles.stack} data-nav-theme="light">
+      <section
+        id="what"
+        className={styles.what}
+        ref={sectionRef}
+        data-nav-theme="dark"
+      >
+        <div className={styles.stack}>
           {services.map((service, i) => (
             <article
-              data-nav-theme="light"
               key={service.title}
               ref={(el) => (panelsRef.current[i] = el)}
               className={styles.panel}
@@ -250,16 +441,14 @@ const What = forwardRef(function What(_, ref) {
                 loop
                 playsInline
               />
-              <div className={styles.overlay} />
+
               <div className={styles.content}>
                 <h1>{service.title}</h1>
-                {/* <p>{service.text}</p> */}
 
                 <button
                   type="button"
                   className={styles.watchButton}
                   onClick={() => setActiveVideo(service.video)}
-                  aria-label={`Watch ${service.title} video full screen`}
                 >
                   Play reel
                 </button>
@@ -270,17 +459,10 @@ const What = forwardRef(function What(_, ref) {
       </section>
 
       {activeVideo && (
-        <div
-          className={styles.modal}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Fullscreen video player"
-        >
+        <div className={styles.modal}>
           <button
-            type="button"
             className={styles.closeButton}
             onClick={() => setActiveVideo(null)}
-            aria-label="Close video player"
           >
             X
           </button>

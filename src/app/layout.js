@@ -12,7 +12,7 @@ export const metadata = {
     template: "%s – PMA Film and TV",
   },
   description:
-    "From creative conception to post - production, we are the entertainment industry's go-to agency for full service video marketing",
+    "From creative conception to post production, we are the entertainment industry's go-to agency for full service video marketing",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "16x16", type: "image/png" },
@@ -33,9 +33,8 @@ export default function RootLayout({ children }) {
       <Head />
       <body>
         {" "}
-        <SmoothScroll>
-          <PageTransition>{children}</PageTransition>
-        </SmoothScroll>
+        <PageTransition />
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

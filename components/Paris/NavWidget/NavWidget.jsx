@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./NavWidget.module.css";
+import CityLink from "../../CityLink";
 import Link from "next/link";
 import gsap from "gsap";
 import Image from "next/image";
@@ -30,10 +31,7 @@ export default function NavWidget({ handleNav }) {
     },
   ];
 
-  const links = [
-    { label: "london", href: "/london" },
-    { label: "contact", href: "#paris-contact" },
-  ];
+  const links = [{ label: "contact", href: "#paris-contact" }];
 
   function onLinkClick(link) {
     setOpen(false);
@@ -269,19 +267,14 @@ export default function NavWidget({ handleNav }) {
               </button>
             );
           })}
-          {links.map((link, i) => {
-            return (
-              <Link
-                key={i}
-                href={link.href}
-                className={`${styles.item} ${styles[link.label]}`}
-                onClick={() => onLinkClick(link)}
-                id={link.label === "london" ? styles.londonLink : undefined}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          <CityLink href="/london" city="london">
+            <button id={styles.londonLink} className={styles.item}>
+              London
+            </button>
+          </CityLink>
+          <Link className={`${styles.item}`} href="#paris-contact">
+            Contact
+          </Link>
         </nav>
         <div className={styles.socialDiv}>
           <a

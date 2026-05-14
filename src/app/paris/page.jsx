@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import NavWidget from "../../../components/Paris/NavWidget/NavWidget";
 import { transitionStore } from "../../../components/PageTransition/transitionstore";
+
 import Partners from "../../../components/Paris/Partners/Partners";
 import Footer from "../../../components/Paris/Footer/Footer";
 import AboutUs from "../../../components/Paris/AboutImageGrid/About";
@@ -20,6 +21,7 @@ export default function London() {
   const heroMediaSlotRef = useRef(null);
   const heroContentRef = useRef(null);
   const whatRef = useRef(null);
+  const logoVidRef = useRef(null);
 
   const heroSectionRef = useRef(null);
 
@@ -27,6 +29,7 @@ export default function London() {
     const adoptedVideo = transitionStore.activeVideoEl;
     const heroSlot = heroMediaSlotRef.current;
     const heroContent = heroContentRef.current;
+    const logoVid = logoVidRef.current;
 
     if (!heroSlot || !heroContent) return;
 
@@ -86,6 +89,9 @@ export default function London() {
       playPromise.catch(() => {});
     }
 
+    logoVid.currentTime = 0;
+    logoVid.pause();
+
     gsap.set(logoEl, {
       autoAlpha: 0,
       y: -10,
@@ -104,42 +110,35 @@ export default function London() {
 
     const tl = gsap.timeline();
 
-    tl.to(logoEl, {
-      autoAlpha: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.7,
-      ease: "power3.out",
-      delay: 0.3,
-    })
+    tl.to(
+      heroTextEl,
+      {
+        autoAlpha: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+
+        ease: "power3.out",
+      },
+      0.28,
+    )
+      .to(logoVid, {
+        opacity: 1,
+      })
+      .call(() => {
+        logoVid.currentTime = 0;
+        logoVid.play();
+      })
       .to(
-        officeTagEl,
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        0.3,
-      )
-      .to(
-        heroTextEl,
+        subTextLinks,
         {
           autoAlpha: 1,
           opacity: 1,
-          y: 0,
-          duration: 0.8,
-
-          ease: "power3.out",
+          duration: 0.03,
+          stagger: 0.4,
         },
-        0.28,
+        "<",
       )
-      .to(subTextLinks, {
-        autoAlpha: 1,
-        opacity: 1,
-        duration: 0.03,
-        stagger: 0.4,
-      })
       .to(
         scrollCueEl,
         {
@@ -150,6 +149,7 @@ export default function London() {
         },
         "+=0.2",
       )
+
       .call(
         () => {
           window.dispatchEvent(new CustomEvent("pma-transition-reveal"));
@@ -198,16 +198,28 @@ export default function London() {
             <div ref={heroContentRef} className={styles.heroContent}>
               <div className={styles.heroTop}>
                 <Link href="/">
-                  <Image
-                    className={styles.logo}
-                    height={177}
-                    width={446}
-                    src="/images/pma-white.png"
-                    alt="PMA"
-                    priority
-                  />
+                  <video
+                    className={styles.logoVideo}
+                    ref={logoVidRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    style={{
+                      width: "clamp(120px, 11vw, 240px)",
+                      height: "auto",
+                    }}
+                  >
+                    <source
+                      src="/video/logo/paris-crop-comp.mov"
+                      type='video/mp4; codecs="hvc1"'
+                    />
+                    <source
+                      src="/video/logo/paris-crop.webm"
+                      type="video/webm"
+                    />
+                  </video>
                 </Link>
-                <span className={styles.officeTag}>paris</span>
               </div>
 
               <div className={styles.heroBottom}>
