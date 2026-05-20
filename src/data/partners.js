@@ -3,7 +3,7 @@ export const londonPartners = [
 
   "/partners/London-Logos/the-academy-pr.png",
   "/partners/London-Logos/altitude.png",
-
+  "/partners/London-Logos/bafta.png",
   "/partners/London-Logos/black-bear-logo.png",
   "/partners/London-Logos/christelle-randall.png",
   "/partners/London-Logos/dda.png",
@@ -34,8 +34,8 @@ export const londonPartners = [
   "/partners/London-Logos/team-pr.png",
   "/partners/London-Logos/true-brit.png",
   "/partners/London-Logos/universal.png",
-  "/partners/London-Logos/warner-bros.png",
-  "/partners/London-Logos/wdm.png",
+  "/partners/London-Logos/wb.png",
+  "/partners/London-Logos/wdm-new.png",
 
   // "/partners/wildbunch.jpg",
 ];
@@ -77,5 +77,5 @@ export const parisPartners = [
   "/partners/Paris-Logos/tf1.png",
   "/partners/Paris-Logos/ugc.png",
   "/partners/Paris-Logos/unifrance.png",
-  "/partners/Paris-Logos/warner-bros.png",
+  "/partners/London-Logos/wb.png",
 ];

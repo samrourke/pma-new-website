@@ -52,7 +52,7 @@ export default function GatewayTitleSimple() {
 
     const timeoutId = setTimeout(() => {
       window.addEventListener("mousemove", handleMouseMove);
-    }, 2500);
+    }, 1900);
 
     return () => {
       clearTimeout(timeoutId);

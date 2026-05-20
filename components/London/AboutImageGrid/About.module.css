@@ -31,9 +31,26 @@
 }
 
 .highlight {
- font-style: italic;
- opacity: 0.9;
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+}
 
+.highlight::after {
+  content: "";
+  position: absolute;
+  left: 5%;
+  bottom: -30%;
+  width: 99%;
+  aspect-ratio: 3/0.21;
+  transform: rotate(-2deg);
+
+  background-image: url("/images/underline-two.png");
+  background-repeat: no-repeat;
+background-size: 100% 100%;
+  background-position: center;
+  pointer-events: none;
+  overflow: visible;
 }
 
 /* RIGHT IMAGE GRID */

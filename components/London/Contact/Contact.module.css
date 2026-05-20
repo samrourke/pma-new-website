@@ -48,7 +48,31 @@
 }
 
 .em{
-  font-weight: 900;
+  font-weight: 1000;
+}
+
+.em {
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  text-wrap: nowrap;
+}
+
+.em::after {
+  content: "";
+  position: absolute;
+  left: -5%;
+  bottom: -20%;
+  width: 104%;
+  aspect-ratio: 3/0.21;
+  transform: rotate(-2deg);
+
+  background-image: url("/images/underline-red.png");
+  background-repeat: no-repeat;
+background-size: 100% 100%;
+  background-position: center;
+  pointer-events: none;
+  overflow: visible;
 }
 
 .routes {
