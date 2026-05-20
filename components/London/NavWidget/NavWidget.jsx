@@ -134,6 +134,8 @@ export default function NavWidget({ handleNav }) {
     return () => observer.disconnect();
   }, [pathname]);
 
+  /* Responsive show/hide on resize */
+
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     handleResize();

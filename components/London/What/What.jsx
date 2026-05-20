@@ -119,7 +119,7 @@ const What = forwardRef(function What({ handleProgress }, ref) {
             autoKill: false,
           },
 
-          duration: 0.2,
+          duration: 0.1,
           ease: "power2.out",
 
           overwrite: "auto",

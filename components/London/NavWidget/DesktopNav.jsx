@@ -80,6 +80,7 @@ export default function DesktopNav({ handleNav, currentSection }) {
   return (
     <header className={styles.wrap}>
       <div className={styles.inner}>
+        
         {/*Desktop Nav */}
         <nav className={styles.nav}>
           <button
@@ -152,8 +153,9 @@ export default function DesktopNav({ handleNav, currentSection }) {
 
         {/*Mobile Nav */}
         <NavWidget handleNav={handleNav} />
-        {/* Logo Wrap */}
 
+
+        {/* Logo Wrap */}
         <div className={styles.logoWrap}>
           <Link href="/">
             <video
@@ -182,6 +184,7 @@ export default function DesktopNav({ handleNav, currentSection }) {
             />
           </Link>
         </div>
+
       </div>
     </header>
   );
