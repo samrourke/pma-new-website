@@ -147,19 +147,19 @@ export default function PageTransition() {
         .to(panel, {
           scaleX: 1,
           ease: "circ.inOut",
-          duration: 0.6,
+          duration: 0.4,
           transformOrigin: "center left",
         })
 
         .to(text, {
           opacity: 1,
           y: 0,
-          duration: 0.3,
+          duration: 0.4,
         })
 
         .to(panel, {
           scaleX: 0,
-          delay: 0.25,
+          delay: 1,
           ease: "circ.inOut",
           duration: 0.6,
           transformOrigin: "center right",
