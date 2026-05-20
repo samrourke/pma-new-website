@@ -209,7 +209,7 @@ export default function PageTransition() {
         >
           <source
             src="/video/logo/transition.mov"
-            type='video/mp4; codecs="hvc1"'
+            type='video/quicktime; codecs="hvc1"'
           />
 
           <source src="/video/logo/transition.webm" type="video/webm" />

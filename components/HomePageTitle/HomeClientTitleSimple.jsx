@@ -416,7 +416,10 @@ export default function GatewayTitleSimple() {
             playsInline
             preload="auto"
           >
-            <source src="/video/logo/transition.mov" type="video/quicktime" />
+            <source
+              src="/video/logo/transition.mov"
+              type='video/quicktime; codecs="hvc1"'
+            />
             <source src="/video/logo/transition.webm" type="video/webm" />
           </video>
           <nav ref={navRef} className={styles.cityNav}>
