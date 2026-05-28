@@ -168,6 +168,30 @@ export default function AboutUs() {
         <div className={styles.left}>
           <div className={styles.copy}>
             <p>
+              PMA is a wonderful family of creative thinkers and enthusiastic
+              do-ers. And we’re expert in bringing film and tv campaigns to
+              life.
+            </p>
+            <p>It’s okay to say it if it’s true. We’re super good at it. </p>
+            <p>
+              With busy offices in London and Paris, we have been the Europe’s
+              favourite, complete and ever-friendly production solution for over
+              20 years. A reputation and an attitude we bring to every job, big
+              or small.{" "}
+            </p>
+            <p className={styles.highlight}>
+              We create. We plan. We shoot. We edit.
+            </p>
+            <p>
+              You can see the thousands of global press junkets, world
+              premieres, events, commercials, promos and launches we have
+              produced online, and over the years every kind of video content
+              from TikToks to long-form documentary.. but to save you the time
+              trawling the internet, just drop us a line and we can tell you
+              what we’re about.
+            </p>
+            <p>Come on it. It’s pretty fun in here :-) </p>
+            {/* <p>
               PMA is a close-knit family of creatives bringing film and
               television campaigns to life{" "}
               <span className={styles.highlight}>from end to end</span>.
@@ -177,7 +201,7 @@ export default function AboutUs() {
               From international press to premieres, post-production and digital
               content, we have shaped how stories connect with audiences beyond
               the screen for over twenty years.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

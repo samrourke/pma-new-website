@@ -201,7 +201,7 @@ export default function London() {
   }, []);
 
   const handleHeroNav = (panelId) => {
-    console.log("Navigating to panel:", panelId);
+  
     whatRef.current?.goToPanel(panelId);
   };
 
